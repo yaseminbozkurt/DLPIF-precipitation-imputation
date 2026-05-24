@@ -110,7 +110,7 @@ DLPIF-clean-repo/
 │   │   └── run_multiseed_saits_v2.py  # SAITS multi-seed run
 │   │
 │   └── figures/
-│       ├── select_diagnostic_window.py #Diagnostic window selection for Figure 6
+│       ├── select_diagnostic_window.py # Diagnostic window selection for Figure 6
 │       ├── generate_fig1_EMS.py       # Figure 1 — DLPIF workflow
 │       ├── generate_fig2_EMS.py       # Figure 2 — wet-day frequency
 │       ├── generate_fig3_EMS.py       # Figure 3 — wet-day F1 performance
