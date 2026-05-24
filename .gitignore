@@ -1,0 +1,72 @@
+# === Data files (restricted or too large for git) ===
+data/
+dataset_birlestirilmis.csv
+*.npy
+*.npz
+*.pkl
+*.pt
+
+# === Deprecated / legacy artifacts ===
+*_precip2stage.npy
+*_precipfinal*.npy
+*_amountrf.npy
+*_clean_precip2stage.npy
+*_clean_amountrf.npy
+precip_2stage_*.pkl
+precip_2stage_*.json
+precip_occurrence_rf_seed42.*
+
+# === Python cache ===
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# === Virtual environments ===
+.venv/
+venv/
+env/
+
+# === Logs and experiment outputs ===
+logs_dl/
+src/logs_dl/
+src/experiments_dl/
+*.log
+epoch*.txt
+*.pypots
+*.ckpt
+events.out.*
+
+# === Manuscript files are submitted separately ===
+paper.pdf
+*.docx
+
+# === Old/audit scripts (not part of official pipeline) ===
+compare_threshold_methods.py
+clean_stage1_rerun.py
+run_precip_2stage.py
+run_precip_final.py
+run_amountrf_multiseed.py
+run_ablation.py
+run_dlpif_block_ablation.py
+run_precip_calibration.py
+run_precip_eval_extensions.py
+generate_dlpif_diagram*.py
+generate_publication_figures*.py
+multiseed_clean_rerun_v*.py
+
+# === IDE and OS files ===
+.idea/
+.vscode/
+*.DS_Store
+Thumbs.db
+
+# === Jupyter ===
+.ipynb_checkpoints/
+*.ipynb
+
+# === Build ===
+dist/
+build/
+*.egg-info/
