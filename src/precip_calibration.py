@@ -25,16 +25,11 @@ WET_THRESH_DEFAULT = 0.1   # mm — standard WMO wet-day threshold
 THRESH_GRID        = list(np.round(np.arange(0.0, 2.05, 0.05), 3))
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Internal helpers
-# ─────────────────────────────────────────────────────────────────────────────
-
 def _to_orig(scaler, arr_norm, idx):
     """Return 1-D original-unit array for column `idx` from a normalised 2-D array."""
     arr_norm = np.clip(arr_norm, 0.0, 1.0)
     orig = scaler.inverse_transform(arr_norm)
     return orig[:, idx]
-
 
 def _wetday_metrics(pred_mm, gt_mm, thresh):
     """Compute wet-day classification metrics at a given threshold (mm)."""
@@ -70,10 +65,7 @@ def _wetday_metrics(pred_mm, gt_mm, thresh):
         'tp': tp, 'fp': fp, 'fn': fn, 'tn': tn,
     }
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Quantile mapping (optional)
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _build_qmap(ref_values, n_quantiles=200):
     """Build a CDF mapping from uniform quantiles → reference distribution."""
@@ -83,7 +75,6 @@ def _build_qmap(ref_values, n_quantiles=200):
     q_levels = np.linspace(0.0, 1.0, n_quantiles + 1)
     q_values = np.percentile(ref_pos, q_levels * 100.0)
     return {'q_levels': q_levels.tolist(), 'q_values': q_values.tolist()}
-
 
 def _apply_qmap(pred_pos, qmap):
     """Map positive predicted precipitation values to the reference distribution."""
@@ -97,10 +88,7 @@ def _apply_qmap(pred_pos, qmap):
                          q_levels)
     return np.interp(pred_cdf, q_levels, q_values).astype(np.float32)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Main class
-# ─────────────────────────────────────────────────────────────────────────────
 
 class PrecipCalibrator:
     """
@@ -129,9 +117,7 @@ class PrecipCalibrator:
         self.qmap                  = None
         self._fit_done             = False
 
-    # ------------------------------------------------------------------
     # Fit
-    # ------------------------------------------------------------------
 
     def fit_threshold(self, val_imp_norm, val_gt_norm, val_art_mask,
                       verbose=True):
@@ -206,9 +192,7 @@ class PrecipCalibrator:
         print(f"  Val wet-day freq  AFTER  fix : gt={a['freq_gt']:.4f}  "
               f"pred={a['freq_pred']:.4f}  bias={a['bias']:+.4f}  F1={a['f1']:.4f}")
 
-    # ------------------------------------------------------------------
     # Apply
-    # ------------------------------------------------------------------
 
     def _calibrate_precip_1d(self, pred_mm):
         """Apply threshold and (optionally) quantile mapping to a 1-D mm array."""
@@ -277,9 +261,7 @@ class PrecipCalibrator:
 
         return cal
 
-    # ------------------------------------------------------------------
     # Serialise / deserialise
-    # ------------------------------------------------------------------
 
     def to_dict(self):
         return {

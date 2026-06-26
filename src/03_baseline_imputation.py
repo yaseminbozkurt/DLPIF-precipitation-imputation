@@ -1,5 +1,5 @@
 """
-03_baseline_imputation.py  — MVP (4 methods)
+03_baseline_imputation.py
 =============================================
 Baseline imputation methods for comparison with WGAN-GP.
 
@@ -10,7 +10,7 @@ Methods:
   4. MICE (IterativeImputer + RandomForest)
 
 All fitted on train data only. Evaluated on test set at 10% and 20%
-artificial missingness, plus block scenarios (7-day, 30-day) — MVP.
+artificial missingness, plus block scenarios (7-day, 30-day) .
 
 Outputs:
   baseline_results.pkl
@@ -35,17 +35,11 @@ from sklearn.ensemble import RandomForestRegressor
 OUTPUT_DIR  = os.path.dirname(os.path.abspath(__file__))
 RANDOM_SEED = 42
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Helpers
-# ─────────────────────────────────────────────────────────────────────────────
 def load_npz(name):
     return np.load(os.path.join(OUTPUT_DIR, f'preprocessed_{name}.npz'), allow_pickle=True)
 
-
 def get_meteo_vars(npz):
     return list(npz['meteo_vars'])
-
 
 def get_scenario_keys(npz):
     """Return list of (key_corrupted, key_art_mask, scenario_label) for all scenarios."""
@@ -59,20 +53,17 @@ def get_scenario_keys(npz):
                 scenarios.append((k, mask_k, suffix))
     return scenarios
 
-
 def rmse(pred, gt, ev_mask):
     sel = ev_mask.astype(bool)
     if sel.sum() == 0:
         return np.nan
     return float(np.sqrt(np.mean((pred[sel] - gt[sel]) ** 2)))
 
-
 def mae(pred, gt, ev_mask):
     sel = ev_mask.astype(bool)
     if sel.sum() == 0:
         return np.nan
     return float(np.mean(np.abs(pred[sel] - gt[sel])))
-
 
 def per_var_metrics(pred, gt, art_mask, meteo_vars):
     out = {}
@@ -86,10 +77,7 @@ def per_var_metrics(pred, gt, art_mask, meteo_vars):
     out['MEAN'] = {'RMSE': mean_rmse, 'MAE': mean_mae}
     return out
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 1. Mean Imputation
-# ─────────────────────────────────────────────────────────────────────────────
 def mean_imputation(train_data, test_corrupted):
     print("  [1] Mean Imputation ... ", end='')
     col_means = np.nanmean(train_data, axis=0)
@@ -101,10 +89,7 @@ def mean_imputation(train_data, test_corrupted):
     print("done")
     return out.astype(np.float32)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 2. Linear Interpolation
-# ─────────────────────────────────────────────────────────────────────────────
 def linear_interpolation(train_data, test_corrupted, meteo_vars):
     print("  [2] Linear Interpolation ... ", end='')
     df  = pd.DataFrame(test_corrupted, columns=meteo_vars)
@@ -113,10 +98,7 @@ def linear_interpolation(train_data, test_corrupted, meteo_vars):
     print("done")
     return out.astype(np.float32)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 3. KNN Imputation
-# ─────────────────────────────────────────────────────────────────────────────
 def knn_imputation(train_data, test_corrupted):
     print("  [3] KNN Imputation (k=5) ... ", end='')
     # Fit KNN on train (fill train NaN with median first)
@@ -132,10 +114,7 @@ def knn_imputation(train_data, test_corrupted):
     print("done")
     return out.astype(np.float32)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 4. MICE (IterativeImputer with RF)
-# ─────────────────────────────────────────────────────────────────────────────
 def mice_imputation(train_data, test_corrupted):
     print("  [4] MICE (IterativeImputer + RF) ... ", end='')
     mice = IterativeImputer(
@@ -154,13 +133,10 @@ def mice_imputation(train_data, test_corrupted):
     print("done")
     return out.astype(np.float32)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # MAIN
-# ─────────────────────────────────────────────────────────────────────────────
 def main():
     print("=" * 60)
-    print("  BASELINE IMPUTATION — MVP (4 methods)")
+    print("  BASELINE IMPUTATION
     print("=" * 60)
 
     tr_npz   = load_npz('train')
@@ -255,7 +231,6 @@ def main():
     print("\n" + "=" * 60)
     print("  BASELINE COMPLETE")
     print("=" * 60)
-
 
 if __name__ == '__main__':
     main()
