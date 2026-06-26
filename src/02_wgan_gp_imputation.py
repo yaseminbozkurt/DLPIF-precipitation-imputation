@@ -1,15 +1,9 @@
 """
-02_wgan_gp_imputation.py  — Mode A (temporal only) + SEQ_LEN ablation
-======================================================================
+02_wgan_gp_imputation.py  — Mode A (temporal only) + ======================================================================
 WGAN-GP with Bidirectional LSTM — Q1 Minimal Pipeline.
 
 Mode A: Input = [corrupted | comb_mask | temporal]
-Ablation: SEQ_LEN in [30, 90], SEED=42
 
-Ablation outputs (one set per seq_len):
-  gan_model_seq30_seed42.pt      gan_model_seq90_seed42.pt
-  gan_imputed_test_seq30_seed42.npy  gan_imputed_test_seq90_seed42.npy
-  training_history_seq30.csv     training_history_seq90.csv
 
 NOTE: Legacy defaults (gan_model_seed42.pt, training_history.csv, etc.)
       are NOT written during the ablation run.
@@ -30,7 +24,6 @@ from precip_calibration import PrecipCalibrator
 
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# ── Configuration ────────────────────────────────────────────────────────────
 MODE        = 'B'    # 'A' = temporal only | 'B' = dual-branch spatio-temporal
 # SEQ_LEN is set per-ablation loop (30 or 90); no global default needed.
 MISS_RATE   = 0.10   # training scenario
@@ -47,16 +40,11 @@ PATIENCE    = 10
 SEED        = 42
 DEVICE      = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-
 def set_seed(s):
     random.seed(s); np.random.seed(s); torch.manual_seed(s)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(s)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Dataset
-# ─────────────────────────────────────────────────────────────────────────────
 class MeteoDataset(Dataset):
     def __init__(self, data, real_mask, corrupted, art_mask, temporal,
                  neighbor_avg, neighbor_mask, seq_len, mode='A'):
@@ -86,10 +74,7 @@ class MeteoDataset(Dataset):
             'nbr_mask': self.nbr_mask[sl],
         }
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Models
-# ─────────────────────────────────────────────────────────────────────────────
 class Generator(nn.Module):
     """Mode A: single-branch Bidirectional LSTM generator.
     Input  = [corrupted | comb_mask | temporal]
@@ -110,7 +95,6 @@ class Generator(nn.Module):
     def forward(self, x):
         out, _ = self.lstm(x)
         return self.head(out)
-
 
 class GeneratorB(nn.Module):
     """Mode B: dual-branch hybrid spatio-temporal generator.
@@ -156,7 +140,6 @@ class GeneratorB(nn.Module):
         fused       = torch.cat([temp_out, spat_out], dim=-1)
         return self.fusion(fused)                     # (B, T, n_meteo)
 
-
 class Discriminator(nn.Module):
     """Unidirectional LSTM discriminator (Wasserstein — no sigmoid)."""
     def __init__(self, in_dim, hidden=HIDDEN_SIZE, n_layers=N_LAYERS, dropout=DROPOUT):
@@ -172,10 +155,7 @@ class Discriminator(nn.Module):
         _, (h, _) = self.lstm(x)
         return self.head(h[-1])
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Training utilities
-# ─────────────────────────────────────────────────────────────────────────────
 def gradient_penalty(D, real, fake, device):
     B     = real.size(0)
     alpha = torch.rand(B, 1, 1, device=device).expand_as(real)
@@ -188,11 +168,9 @@ def gradient_penalty(D, real, fake, device):
     )[0]
     return ((grad.norm(2, dim=(1, 2)) - 1) ** 2).mean()
 
-
 def build_combined_mask(batch):
     """Combined mask: real missing OR artificially removed."""
     return (1 - batch['gt_mask'] + batch['art_mask']).clamp(0, 1)
-
 
 def build_gen_input(batch, mode='A'):
     """Generator input tensor(s).
@@ -206,11 +184,9 @@ def build_gen_input(batch, mode='A'):
         return x_temp, x_spat
     return x_temp
 
-
 def build_disc_input(meteo, comb_mask, temporal):
     """Discriminator input: meteo + comb_mask + temporal."""
     return torch.cat([meteo, comb_mask, temporal], dim=-1)
-
 
 @torch.no_grad()
 def val_rmse(G, loader, device, mode='A'):
@@ -226,10 +202,7 @@ def val_rmse(G, loader, device, mode='A'):
             n  += am.sum().item()
     return (sq / n) ** 0.5 if n > 0 else float('nan')
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Training loop
-# ─────────────────────────────────────────────────────────────────────────────
 def train_model(G, D, train_loader, val_loader, mode=MODE,
                 n_epochs=N_EPOCHS, patience=PATIENCE):
     opt_G = torch.optim.Adam(G.parameters(), lr=LR, betas=(0.5, 0.9))
@@ -299,10 +272,7 @@ def train_model(G, D, train_loader, val_loader, mode=MODE,
 
     return best_G, best_D, best_ep, best_rmse, pd.DataFrame(history)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Inference (sliding window)
-# ─────────────────────────────────────────────────────────────────────────────
 @torch.no_grad()
 def impute(G, data_np, real_mask_np, temporal_np,
            nbr_avg_np, nbr_mask_np, n_meteo, seq_len=30, mode=MODE):
@@ -346,10 +316,7 @@ def impute(G, data_np, real_mask_np, temporal_np,
     counts = np.where(counts == 0, 1, counts)
     return output / counts
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # MAIN
-# ─────────────────────────────────────────────────────────────────────────────
 def load_npz(name, miss_key, amask_key):
     z = np.load(os.path.join(OUTPUT_DIR, f'preprocessed_{name}.npz'), allow_pickle=True)
     nbr_avg  = z['neighbor_avg'].astype(np.float32)  if 'neighbor_avg'  in z.files else np.zeros_like(z['data'], dtype=np.float32)
@@ -360,7 +327,6 @@ def load_npz(name, miss_key, amask_key):
             z[amask_key].astype(np.float32),
             z['temporal'].astype(np.float32),
             nbr_avg, nbr_mask)
-
 
 def run_one(seq_len, seed):
     """
@@ -548,7 +514,6 @@ def run_one(seq_len, seed):
 
     return best_ep, best_rmse
 
-
 def main():
     """Run the appropriate experiment based on MODE.
 
@@ -602,7 +567,6 @@ def main():
             print(f"  {r['seed']:>6}  {r['best_epoch']:>10}  {r['best_val_rmse']:>10.4f}")
         print("=" * 62)
         sys.stdout.flush()
-
 
 if __name__ == '__main__':
     main()

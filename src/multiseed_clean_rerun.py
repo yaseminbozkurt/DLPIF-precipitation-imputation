@@ -22,7 +22,6 @@ P95_THRESH  = 16.74
 SEEDS       = [42, 123, 456]
 COR_KEY     = 'corrupted_10pct'
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
 
 def load_scaler():
     with open(os.path.join(OUTPUT_DIR, 'scaler.pkl'), 'rb') as f:
@@ -196,19 +195,15 @@ def main():
         print(f'  Test: wet_pred={te_wet_pred.mean():.4f}  gt_wet={(te_gt>WET_THRESH).mean():.4f}')
 
         # ── Load raw GAN base imputation (produced by Step 2: 02_wgan_gp_imputation.py) ──────
-        # Note: the legacy name _precip2stage.npy has been replaced with the canonical raw GAN
-        # output gan_imputed_test_modeB_seed{seed}.npy.  The Precip2Stage output variant is
-        # constructed below inside this script (zeroing dry-predicted positions), not externally.
         p2_path = os.path.join(OUTPUT_DIR, f'gan_imputed_test_modeB_seed{seed}.npy')
         if not os.path.exists(p2_path):
             print(f'  [SKIP] raw GAN base npy not found for seed {seed}')
-            print(f'         Expected: {p2_path}')
-            print(f'         Produce it by running: python src/02_wgan_gp_imputation.py --seed {seed} --mode B')
             continue
         p2_norm = np.load(p2_path).astype(np.float32)
         p2_mm   = np.clip(p2_norm[:,pidx],0,1)*sc.data_range_[pidx]+sc.data_min_[pidx]
 
-        # ── Build Precip2Stage clean ──────────────────────────────────────────
+        # ── Build Precip2Stage clean (global occurrence correction) ──────────
+        # imp_p2s applies occurrence RF globally (not scenario-specific):
         imp_p2s = p2_mm.copy()
         imp_p2s[~te_wet_pred] = 0.0
         if qmap is not None and te_wet_pred.sum()>0:
@@ -216,41 +211,46 @@ def main():
             imp_p2s[te_wet_pred] = apply_qmap(raw_wet, qmap)
         imp_p2s = np.clip(imp_p2s, 0, None)
 
-        p2s_full = p2_norm.copy()
-        p2s_full[:,pidx] = to_norm(sc, imp_p2s, pidx)
-        np.save(os.path.join(OUTPUT_DIR,
-            f'gan_imputed_test_modeB_seed{seed}_msclean_precip2stage.npy'),
-            p2s_full.astype(np.float32))
-
         # ── Train seed-specific AmountRF ──────────────────────────────────────
         amt_rf = RandomForestRegressor(n_estimators=400, random_state=seed,
                                        min_samples_leaf=2, n_jobs=-1)
         amt_rf.fit(X_tr_amt[tr_wet], tr_gt[tr_wet])
 
-        # ── Build AmountRF clean (scenario-aware) ────────────────────────────
-        amt_mm = imp_p2s.copy()
+        # ── Build and save scenario-specific arrays ───────────────────────────
+        # FIX (audit 2026-06-22): Previously a single scenario-agnostic array
+        # was saved after looping all scenarios on the same amt_mm buffer,
+        # causing cross-scenario contamination (recomputed F1 ~0.98 vs ref ~0.76).
+        # Now each scenario gets an independent copy: no cross-contamination.
         for scen_label, mask_key in SCENARIOS:
             if mask_key not in te.files: continue
             m = te[mask_key].astype(np.float32)[:,pidx] > 0.5
-            apply_sel = m & te_wet_pred
-            if apply_sel.sum() > 0:
-                amt_mm[apply_sel] = np.maximum(amt_rf.predict(X_te_amt[apply_sel]), 0.0)
-            amt_mm[m & ~te_wet_pred] = 0.0
-
-        amt_full = p2_norm.copy()
-        amt_full[:,pidx] = to_norm(sc, amt_mm, pidx)
-        np.save(os.path.join(OUTPUT_DIR,
-            f'gan_imputed_test_modeB_seed{seed}_msclean_amountrf.npy'),
-            amt_full.astype(np.float32))
-
-        # ── Evaluate per scenario ─────────────────────────────────────────────
-        for scen_label, mask_key in SCENARIOS:
-            if mask_key not in te.files: continue
-            m   = te[mask_key].astype(np.float32)[:,pidx] > 0.5
             gt_m = te_gt[m]; n_m = int(m.sum())
 
-            r1 = metrics(gt_m, imp_p2s[m], f'Precip2Stage_clean_seed{seed}', scen_label, n_m)
-            r2 = metrics(gt_m, amt_mm[m],  f'AmountRF_clean_seed{seed}',     scen_label, n_m)
+            # -- Precip2Stage: global occ-corrected, saved per scenario --
+            p2s_scen = imp_p2s.copy()
+            p2s_full_scen = p2_norm.copy()
+            p2s_full_scen[:,pidx] = to_norm(sc, p2s_scen, pidx)
+            np.save(os.path.join(OUTPUT_DIR,
+                f'gan_imputed_test_modeB_seed{seed}_msclean_precip2stage_{scen_label}.npy'),
+                p2s_full_scen.astype(np.float32))
+
+            # -- AmountRF: FRESH start for every scenario (no cross-contamination) --
+            amt_scen = imp_p2s.copy()
+            apply_sel = m & te_wet_pred
+            if apply_sel.sum() > 0:
+                amt_scen[apply_sel] = np.maximum(
+                    amt_rf.predict(X_te_amt[apply_sel]), 0.0)
+            amt_scen[m & ~te_wet_pred] = 0.0
+
+            amt_full_scen = p2_norm.copy()
+            amt_full_scen[:,pidx] = to_norm(sc, amt_scen, pidx)
+            np.save(os.path.join(OUTPUT_DIR,
+                f'gan_imputed_test_modeB_seed{seed}_msclean_amountrf_{scen_label}.npy'),
+                amt_full_scen.astype(np.float32))
+
+            # -- Evaluate --
+            r1 = metrics(gt_m, p2s_scen[m], f'Precip2Stage_clean_seed{seed}', scen_label, n_m)
+            r2 = metrics(gt_m, amt_scen[m], f'AmountRF_clean_seed{seed}',     scen_label, n_m)
             all_records += [r1, r2]
             print(f'  [{scen_label}] P2S F1={r1["f1"]:.4f} bias={r1["bias"]:+.4f}'
                   f'  AMT F1={r2["f1"]:.4f} RMSE_wet={r2["rmse_wet"]} MAE_p95={r2["mae_p95"]}')

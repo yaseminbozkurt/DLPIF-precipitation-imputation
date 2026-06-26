@@ -91,7 +91,7 @@ def harrow(i):
 #  TITLE
 # ──────────────────────────────────────────────────────────────────────────────
 ax.text(FW / 2, FH - 0.15,
-        "Decoupled Latent\u2013Physical Imputation Framework (DLPIF)",
+        "Decoupled Learning\u2013Physical Imputation Framework (DLPIF)",
         fontsize=10.5, fontweight="bold", fontfamily=FONT,
         ha="center", va="top", color="#1a1a2e")
 ax.text(FW / 2, FH - 0.46,
@@ -117,7 +117,7 @@ box(1, C_BASE,
     ["Base Imputation",
      "WGAN-GP, Mode B",
      "Multivariate reconstruction",
-     "\u2192 imputed latent state"],
+     "\u2192 imputed continuous state"],
     [6.8, 5.1, 5.1, 5.1])
 
 # 2 – Stage 1

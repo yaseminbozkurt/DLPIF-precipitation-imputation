@@ -1,14 +1,8 @@
 """
-04_evaluation.py  — MVP-Q1 Evaluation (v2)
+04_evaluation.py
 ===========================================
 ALL metrics reported in ORIGINAL meteorological units.
 Normalized metrics (training) are footnote-only.
-
-New in v2:
-  - Standardized RMSE: RMSE / train_std per variable (cross-variable comparison)
-  - Extreme metrics: p95/p99 RMSE for TMAX, wet-day frequency (PRECIP>0)
-  - Physical check on RAW GAN output and on ground truth (not just post-processed)
-  - Discovers all available gan_imputed_test_*.npy files automatically
 
 Inputs  (same directory):
   preprocessed_test.npz  preprocessed_train.npz
@@ -44,15 +38,11 @@ from scipy.stats import wasserstein_distance, ks_2samp
 
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Helpers
-# ─────────────────────────────────────────────────────────────────────────────
 def load_scaler():
     path = os.path.join(OUTPUT_DIR, 'scaler.pkl')
     with open(path, 'rb') as f:
         d = pickle.load(f)
     return d['scaler'], list(d['meteo_vars'])
-
 
 def inverse_orig(sc, arr_norm):
     """Inverse-transform normalised array; NaN preserved."""
@@ -63,16 +53,13 @@ def inverse_orig(sc, arr_norm):
     out[nan_m] = np.nan
     return out
 
-
 def rmse_val(pred, gt, mask):
     sel = mask.astype(bool)
     return float(np.sqrt(np.mean((pred[sel] - gt[sel]) ** 2))) if sel.sum() else np.nan
 
-
 def mae_val(pred, gt, mask):
     sel = mask.astype(bool)
     return float(np.mean(np.abs(pred[sel] - gt[sel]))) if sel.sum() else np.nan
-
 
 def per_var_metrics(pred_orig, gt_orig, art_mask, meteo_vars, train_stds):
     rows = []
@@ -88,10 +75,7 @@ def per_var_metrics(pred_orig, gt_orig, art_mask, meteo_vars, train_stds):
         })
     return rows
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Seasonal RMSE (DJF/MAM/JJA/SON)
-# ─────────────────────────────────────────────────────────────────────────────
 def _season_from_month(month: int) -> str:
     if month in (12, 1, 2):
         return 'DJF'
@@ -100,7 +84,6 @@ def _season_from_month(month: int) -> str:
     if month in (6, 7, 8):
         return 'JJA'
     return 'SON'
-
 
 def _extract_months_from_npz(te_npz):
     """
@@ -125,7 +108,6 @@ def _extract_months_from_npz(te_npz):
     months = dt.month.to_numpy()
     return months
 
-
 def seasonal_rmse_rows(pred_orig, gt_orig, art_mask, months, meteo_vars, method, scenario):
     rows = []
     for i, v in enumerate(meteo_vars):
@@ -145,10 +127,7 @@ def seasonal_rmse_rows(pred_orig, gt_orig, art_mask, months, meteo_vars, method,
             })
     return rows
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Distribution-preservation metrics (masked locations only)
-# ─────────────────────────────────────────────────────────────────────────────
 def distribution_metrics_rows(pred_orig, gt_orig, art_mask, meteo_vars, method, scenario):
     """
     Compute distribution distances between imputed and true values
@@ -182,10 +161,7 @@ def distribution_metrics_rows(pred_orig, gt_orig, art_mask, meteo_vars, method, 
         })
     return rows
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Station-wise RMSE (masked locations only)
-# ─────────────────────────────────────────────────────────────────────────────
 def _extract_stations_from_npz(te_npz):
     """
     Extract station labels/IDs from the test NPZ without changing preprocessing.
@@ -204,7 +180,6 @@ def _extract_stations_from_npz(te_npz):
     stations = np.asarray(stations).reshape(-1)
     stations = stations.astype(str)
     return stations
-
 
 def station_rmse_rows(pred_orig, gt_orig, art_mask, stations, meteo_vars, method, scenario):
     rows = []
@@ -228,10 +203,7 @@ def station_rmse_rows(pred_orig, gt_orig, art_mask, stations, meteo_vars, method
             })
     return rows
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Extreme metrics
-# ─────────────────────────────────────────────────────────────────────────────
 def extreme_metrics(pred_orig, gt_orig, art_mask, meteo_vars):
     result = {}
     # p95 / p99 RMSE for TMAX
@@ -266,10 +238,7 @@ def extreme_metrics(pred_orig, gt_orig, art_mask, meteo_vars):
             result['PRECIP_wetday_bias'] = round(pred_wet - gt_wet, 4)
     return result
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Precipitation classification metrics
-# ─────────────────────────────────────────────────────────────────────────────
 def precip_classification_rows(pred_orig, gt_orig, art_mask, meteo_vars,
                                 method, scenario, thresh_mm=0.1):
     """Full wet/dry classification metrics at masked PRECIP locations."""
@@ -316,7 +285,6 @@ def precip_classification_rows(pred_orig, gt_orig, art_mask, meteo_vars,
         'tp': tp, 'fp': fp, 'fn': fn, 'tn': tn,
     }]
 
-
 def precip_detailed_rows(pred_orig, gt_orig, art_mask, meteo_vars,
                          method, scenario, thresh_mm=0.1):
     """Additional PRECIP diagnostics at masked locations (wet-only errors + FAR/MR)."""
@@ -357,10 +325,7 @@ def precip_detailed_rows(pred_orig, gt_orig, art_mask, meteo_vars,
         'tp': tp, 'fp': fp, 'fn': fn, 'tn': tn,
     }]
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Physical consistency check (raw, no post-processing)
-# ─────────────────────────────────────────────────────────────────────────────
 def physical_check_raw(arr_orig, meteo_vars, label):
     result = {'label': label, 'n_rows': len(arr_orig), 'viol_count': np.nan, 'viol_pct': np.nan}
     try:
@@ -375,10 +340,7 @@ def physical_check_raw(arr_orig, meteo_vars, label):
     result['viol_pct']   = round(100.0 * viol / len(arr_orig), 3)
     return result
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # MAIN
-# ─────────────────────────────────────────────────────────────────────────────
 def main():
     print("=" * 64)
     print("  04_EVALUATION v2 — Q1 | All metrics in original units")
@@ -744,9 +706,8 @@ def main():
         print("  fig_rmse_bar.png ✓")
 
     print("\n" + "=" * 64)
-    print("  EVALUATION COMPLETE (v2)")
+    print("  EVALUATION COMPLETE ")
     print("=" * 64)
-
 
 if __name__ == '__main__':
     main()

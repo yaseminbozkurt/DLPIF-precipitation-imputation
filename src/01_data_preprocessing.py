@@ -1,8 +1,7 @@
 """
 01_data_preprocessing.py
 ========================
-Kutahya Region – 4 Stations – Q1 Full Preprocessing Pipeline
-Stations: KUTAHYA, TAVSANLI, SIMAV, GEDIZ  (1973-2023, daily)
+Kutahya Region – 4 Stations – Stations: KUTAHYA, TAVSANLI, SIMAV, GEDIZ  (1973-2023, daily)
 
 Outputs:
     preprocessed_train.npz
@@ -33,18 +32,15 @@ DATA_PATH  = os.path.join(OUTPUT_DIR, 'dataset_birlestirilmis.csv')
 
 # Variables to impute (7 variables including PRECIP)
 METEO_VARS   = ['TMIN', 'TMEAN', 'TMAX', 'RH_MEAN', 'P_MEAN', 'WIND_MEAN', 'PRECIP']
-MISS_RATES   = [0.10, 0.20]               # random missingness rates (MVP: 10, 20%)
-BLOCK_LENS   = [7, 30]                    # block lengths (days) — test only (MVP)
+MISS_RATES   = [0.10, 0.20]               # random missingness rates
+BLOCK_LENS   = [7, 30]                    # block lengths (days) — test only 
 BLOCK_RATE   = 0.20                        # fraction to remove in block scenario
 RANDOM_SEED  = 42
 np.random.seed(RANDOM_SEED)
 
 TEMPORAL_FEATURES = ['DOY_SIN', 'DOY_COS', 'MON_SIN', 'MON_COS', 'SEASON']
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 1. Load & Parse
-# ─────────────────────────────────────────────────────────────────────────────
 def load_data(path: str) -> pd.DataFrame:
     print("=" * 60)
     print("  KUTAHYA REGION – 4 STATIONS – Q1 PREPROCESSING PIPELINE")
@@ -59,10 +55,7 @@ def load_data(path: str) -> pd.DataFrame:
     print(f"   Stations: {sorted(df['STATION_ID'].unique().tolist())}")
     return df
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 2. Data Validation
-# ─────────────────────────────────────────────────────────────────────────────
 def validate_data(df: pd.DataFrame):
     print("\n2. Data Validation ...")
 
@@ -101,10 +94,7 @@ def validate_data(df: pd.DataFrame):
 
     return violations
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 3. Missingness Analysis
-# ─────────────────────────────────────────────────────────────────────────────
 def analyze_missingness(df: pd.DataFrame) -> pd.DataFrame:
     print("\n3. Missingness Analysis ...")
     records = []
@@ -156,10 +146,7 @@ def analyze_missingness(df: pd.DataFrame) -> pd.DataFrame:
     print(f"\n   Report saved → {path}")
     return report
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 4. Adjacency Matrix (Haversine + Elevation)
-# ─────────────────────────────────────────────────────────────────────────────
 def haversine_km(lat1, lon1, lat2, lon2):
     """Great-circle distance in km."""
     R = 6371.0
@@ -168,7 +155,6 @@ def haversine_km(lat1, lon1, lat2, lon2):
     dlam = math.radians(lon2 - lon1)
     a = math.sin(dphi/2)**2 + math.cos(phi1)*math.cos(phi2)*math.sin(dlam/2)**2
     return 2 * R * math.asin(math.sqrt(a))
-
 
 def build_adjacency(df: pd.DataFrame, k: int = 2):
     """Build adjacency matrix from station coordinates."""
@@ -253,10 +239,7 @@ def build_adjacency(df: pd.DataFrame, k: int = 2):
     print(f"\n   Adjacency saved → {adj_path}")
     return adj_data
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 5. Temporal & Spatial Features
-# ─────────────────────────────────────────────────────────────────────────────
 def add_temporal_spatial_features(df: pd.DataFrame) -> tuple:
     print("\n5. Adding temporal & spatial features ...")
     df = df.copy()
@@ -287,10 +270,7 @@ def add_temporal_spatial_features(df: pd.DataFrame) -> tuple:
     print(f"   Station one-hot: {[f'STA_{s}' for s in stations]}")
     return df, stations
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 6. Temporal Split (by unique DATE – no shuffle)
-# ─────────────────────────────────────────────────────────────────────────────
 def temporal_split(df: pd.DataFrame, train_frac=0.70, val_frac=0.15):
     print("\n6. Temporal split (70 / 15 / 15) ...")
     unique_dates = np.sort(df['DATE'].unique())
@@ -315,10 +295,7 @@ def temporal_split(df: pd.DataFrame, train_frac=0.70, val_frac=0.15):
     print("   [OK] No date overlap — leakage check passed")
     return train_df, val_df, test_df
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 7. Normalisation (fit on TRAIN only)
-# ─────────────────────────────────────────────────────────────────────────────
 def normalize(train_df, val_df, test_df, meteo_vars):
     print("\n7. Normalisation (MinMaxScaler, fit=train) ...")
     scaler = MinMaxScaler(feature_range=(0, 1))
@@ -355,10 +332,7 @@ def normalize(train_df, val_df, test_df, meteo_vars):
         print(f"     {v:12s}: [{mn:.4f}, {mx:.4f}]")
     return train_df, val_df, test_df, scaler
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 8. Artificial Missingness
-# ─────────────────────────────────────────────────────────────────────────────
 def random_missingness(data: np.ndarray, real_mask: np.ndarray,
                        miss_rate: float, seed: int = 42):
     """Randomly hide observed values. Returns (corrupted, art_mask)."""
@@ -374,7 +348,6 @@ def random_missingness(data: np.ndarray, real_mask: np.ndarray,
         art_mask[remove, col]  = 1
         corrupted[remove, col] = np.nan
     return corrupted, art_mask
-
 
 def block_missingness(data: np.ndarray, real_mask: np.ndarray,
                       block_len: int, miss_rate: float, seed: int = 42):
@@ -404,10 +377,6 @@ def block_missingness(data: np.ndarray, real_mask: np.ndarray,
             corrupted[blk, col] = np.nan
     return corrupted, art_mask
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Array builder
-# ─────────────────────────────────────────────────────────────────────────────
 SPATIAL_RAW_COLS = ['LAT', 'LON', 'ELEV']
 
 def prepare_arrays(df, meteo_vars, temporal_feats, station_cols):
@@ -422,10 +391,7 @@ def prepare_arrays(df, meteo_vars, temporal_feats, station_cols):
     station_ids = df['STATION_ID'].values
     return data, real_mask, temporal, spatial, dates, station_ids
 
-
-# ───────────────────────────────────────────────────────────────────────────────
 # Neighbor average (Mode B support)
-# ───────────────────────────────────────────────────────────────────────────────
 def compute_neighbor_avg(data_norm, station_ids_arr, A_knn, station_list):
     """
     Compute kNN-weighted neighbor average per row (Mode B feature).
@@ -471,12 +437,9 @@ def compute_neighbor_avg(data_norm, station_ids_arr, A_knn, station_list):
     print(f"     neighbor_avg coverage: {100.0 * mask.mean():.1f}% of (date,station,var) cells have ≥1 neighbour")
     return neighbor_avg.reshape(N, V).astype(np.float32), \
            neighbor_mask.reshape(N, V).astype(np.float32)
-# ─────────────────────────────────────────────────────────────────────────────
 def main():
-    # 1. Load
     df = load_data(DATA_PATH)
 
-    # 2. Validate
     validate_data(df)
 
     # 3. Missingness analysis (on raw data)
@@ -494,10 +457,8 @@ def main():
     df, stations = add_temporal_spatial_features(df)
     station_cols = [f'STA_{s}' for s in stations]
 
-    # 6. Split
     train_df, val_df, test_df = temporal_split(df)
 
-    # 7. Normalize
     meteo_vars = [v for v in METEO_VARS if v in df.columns]
     train_df, val_df, test_df, scaler = normalize(train_df, val_df, test_df, meteo_vars)
 
@@ -568,7 +529,6 @@ def main():
     print("\n" + "=" * 60)
     print("  PREPROCESSING COMPLETE")
     print("=" * 60)
-
 
 if __name__ == '__main__':
     main()
