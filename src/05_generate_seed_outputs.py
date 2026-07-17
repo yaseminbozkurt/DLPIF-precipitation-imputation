@@ -216,15 +216,15 @@ def make_predictions_and_filled():
             arr_orig = inverse_transform(sc, arr_norm)
             imputed[(method_name, scen_label, "deterministic")] = arr_orig
 
-    # 2) WGAN-GP_raw (seeded, scenario-independent imputation array)
+    # 2) WGAN-GP_raw (seeded, scenario-specific imputation arrays)
     for seed in [42, 123, 456]:
-        p = os.path.join(SRC_DIR, f"gan_imputed_test_modeB_seed{seed}.npy")
-        if not os.path.exists(p):
-            print(f"  [WARN] WGAN-GP raw not found: {os.path.basename(p)}")
-            continue
-        arr_norm = np.load(p).astype(np.float32)
-        arr_orig = inverse_transform(sc, arr_norm)
         for scen_label in SCENARIOS:
+            p = os.path.join(SRC_DIR, f"gan_imputed_test_modeB_{scen_label}_seed{seed}.npy")
+            if not os.path.exists(p):
+                print(f"  [WARN] WGAN-GP raw not found: {os.path.basename(p)}")
+                continue
+            arr_norm = np.load(p).astype(np.float32)
+            arr_orig = inverse_transform(sc, arr_norm)
             imputed[("WGAN-GP_raw", scen_label, seed)] = arr_orig
 
     # 3) Precip2Stage (seeded, scenario-SPECIFIC)

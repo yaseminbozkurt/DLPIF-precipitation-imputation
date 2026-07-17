@@ -8,7 +8,7 @@ Mode A: Input = [corrupted | comb_mask | temporal]
 NOTE: Legacy defaults (gan_model_seed42.pt, training_history.csv, etc.)
       are NOT written during the ablation run.
 """
-import sys, io, os, time, random, pickle
+import sys, io, os, time, random, pickle, json, subprocess
 try:
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 except Exception:
@@ -26,7 +26,15 @@ OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MODE        = 'B'    # 'A' = temporal only | 'B' = dual-branch spatio-temporal
 # SEQ_LEN is set per-ablation loop (30 or 90); no global default needed.
-MISS_RATE   = 0.10   # training scenario
+TRAIN_SCENARIO = '10pct'
+WINDOW_STRATEGY = 'station_specific_calendar_consecutive'
+NEIGHBOR_STRATEGY = 'scenario_specific'
+SCENARIOS = {
+    '10pct': ('corrupted_10pct', 'art_mask_10pct'),
+    '20pct': ('corrupted_20pct', 'art_mask_20pct'),
+    'block7d': ('corrupted_block7d', 'art_mask_block7d'),
+    'block30d': ('corrupted_block30d', 'art_mask_block30d'),
+}
 BATCH_SIZE  = 128
 N_EPOCHS    = 60
 N_CRITIC    = 3
@@ -39,15 +47,98 @@ DROPOUT     = 0.2
 PATIENCE    = 10
 SEED        = 42
 DEVICE      = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+WINDOW_STRIDE = 1
+
+
+def get_git_commit():
+    try:
+        return subprocess.check_output(
+            ['git', 'rev-parse', 'HEAD'],
+            cwd=os.path.dirname(OUTPUT_DIR),
+            text=True,
+        ).strip()
+    except Exception:
+        return 'unknown'
 
 def set_seed(s):
     random.seed(s); np.random.seed(s); torch.manual_seed(s)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(s)
 
+def build_station_windows(dates, station_ids, seq_len, stride=1, include_tail=False):
+    """Return same-station, consecutive-calendar-day windows."""
+    date_days = pd.Series(pd.to_datetime(dates)).dt.normalize().to_numpy()
+    station_arr = np.asarray(station_ids)
+    windows = []
+
+    for station in pd.unique(station_arr):
+        station_idx = np.where(station_arr == station)[0]
+        station_idx = station_idx[np.argsort(date_days[station_idx])]
+        if len(station_idx) < seq_len:
+            continue
+
+        starts = list(range(0, len(station_idx) - seq_len + 1, stride))
+        tail_start = len(station_idx) - seq_len
+        if include_tail and tail_start not in starts:
+            starts.append(tail_start)
+
+        for start in starts:
+            window_idx = station_idx[start:start + seq_len]
+            if len(np.unique(station_arr[window_idx])) != 1:
+                raise AssertionError('WGAN window crosses station boundaries')
+            window_dates = date_days[window_idx].astype('datetime64[D]')
+            date_diffs = np.diff(window_dates).astype('timedelta64[D]').astype(int)
+            if len(window_idx) != seq_len or not np.all(date_diffs == 1):
+                raise AssertionError('WGAN window is not consecutive calendar days')
+            windows.append(window_idx.astype(np.int64))
+
+    return windows
+
+
+def window_diagnostics(windows, dates, station_ids, seq_len, label):
+    date_days = pd.Series(pd.to_datetime(dates)).dt.normalize().to_numpy().astype('datetime64[D]')
+    station_arr = np.asarray(station_ids)
+    lengths, station_counts, step_days = [], [], []
+    cross_station = 0
+    non_consecutive = 0
+
+    for window_idx in windows:
+        lengths.append(len(window_idx))
+        station_counts.append(len(np.unique(station_arr[window_idx])))
+        if station_counts[-1] != 1:
+            cross_station += 1
+        diffs = np.diff(date_days[window_idx]).astype('timedelta64[D]').astype(int)
+        step_days.extend(diffs.tolist())
+        if len(window_idx) != seq_len or not np.all(diffs == 1):
+            non_consecutive += 1
+
+    diag = {
+        'number_of_windows': len(windows),
+        'unique_window_lengths': sorted(set(lengths)),
+        'stations_per_window': sorted(set(station_counts)),
+        'calendar_step_days': sorted(set(step_days)),
+        'cross_station_windows': cross_station,
+        'non_consecutive_windows': non_consecutive,
+    }
+    if diag['unique_window_lengths'] != [seq_len]:
+        raise AssertionError(f'{label}: unexpected window lengths {diag["unique_window_lengths"]}')
+    if diag['stations_per_window'] != [1]:
+        raise AssertionError(f'{label}: station-mixing windows detected')
+    if diag['calendar_step_days'] != [1]:
+        raise AssertionError(f'{label}: non-daily calendar steps detected')
+    if cross_station or non_consecutive:
+        raise AssertionError(f'{label}: invalid WGAN windows {diag}')
+
+    print(f"  WGAN window diagnostics [{label}]:")
+    for key, value in diag.items():
+        print(f"    {key}: {value}")
+    return diag
+
+
 class MeteoDataset(Dataset):
     def __init__(self, data, real_mask, corrupted, art_mask, temporal,
-                 neighbor_avg, neighbor_mask, seq_len, mode='A'):
+                 neighbor_avg, neighbor_mask, dates, station_ids,
+                 seq_len, mode='A', label='dataset'):
         self.data      = torch.tensor(np.nan_to_num(data,         nan=0.0), dtype=torch.float32)
         self.gt_mask   = torch.tensor(real_mask,                             dtype=torch.float32)
         self.corrupt   = torch.tensor(np.nan_to_num(corrupted,    nan=0.0), dtype=torch.float32)
@@ -57,21 +148,25 @@ class MeteoDataset(Dataset):
         self.nbr_mask  = torch.tensor(neighbor_mask,                         dtype=torch.float32)
         self.seq_len   = seq_len
         self.mode      = mode
-        self.starts    = list(range(0, len(data) - seq_len, seq_len))   # non-overlapping
+        self.windows   = build_station_windows(
+            dates, station_ids, seq_len, stride=WINDOW_STRIDE, include_tail=False
+        )
+        self.window_diagnostics = window_diagnostics(
+            self.windows, dates, station_ids, seq_len, label
+        )
 
-    def __len__(self): return len(self.starts)
+    def __len__(self): return len(self.windows)
 
     def __getitem__(self, i):
-        s  = self.starts[i]
-        sl = slice(s, s + self.seq_len)
+        idx = self.windows[i]
         return {
-            'data'    : self.data[sl],
-            'gt_mask' : self.gt_mask[sl],
-            'corrupt' : self.corrupt[sl],
-            'art_mask': self.art_mask[sl],
-            'temporal': self.temporal[sl],
-            'nbr_avg' : self.nbr_avg[sl],
-            'nbr_mask': self.nbr_mask[sl],
+            'data'    : self.data[idx],
+            'gt_mask' : self.gt_mask[idx],
+            'corrupt' : self.corrupt[idx],
+            'art_mask': self.art_mask[idx],
+            'temporal': self.temporal[idx],
+            'nbr_avg' : self.nbr_avg[idx],
+            'nbr_mask': self.nbr_mask[idx],
         }
 
 # Models
@@ -274,59 +369,84 @@ def train_model(G, D, train_loader, val_loader, mode=MODE,
 
 # Inference (sliding window)
 @torch.no_grad()
-def impute(G, data_np, real_mask_np, temporal_np,
-           nbr_avg_np, nbr_mask_np, n_meteo, seq_len=30, mode=MODE):
+def impute(G, corrupted_np, real_mask_np, art_mask_np, temporal_np,
+           nbr_avg_np, nbr_mask_np, dates_np, station_ids_np,
+           n_meteo, seq_len=30, mode=MODE, label='inference',
+           return_coverage=False):
     """Sliding-window inference.
     Mode A: calls G(x_temp)           — single concatenated input.
     Mode B: calls G(x_temp, x_spat)   — dual-branch GeneratorB.
     """
     G.eval().to(DEVICE)
-    N      = data_np.shape[0]
+    N      = corrupted_np.shape[0]
     output = np.zeros((N, n_meteo), dtype=np.float32)
     counts = np.zeros((N, n_meteo), dtype=np.float32)
-    data_z = np.nan_to_num(data_np, nan=0.0).astype(np.float32)
-    comb   = (1 - real_mask_np).astype(np.float32)
+    data_z = np.nan_to_num(corrupted_np, nan=0.0).astype(np.float32)
+    comb   = np.clip((1 - real_mask_np) + art_mask_np, 0, 1).astype(np.float32)
     nbr_z  = np.nan_to_num(nbr_avg_np, nan=0.0).astype(np.float32)
     step   = max(1, seq_len // 2)
+    windows = build_station_windows(
+        dates_np, station_ids_np, seq_len, stride=step, include_tail=True
+    )
+    window_diagnostics(windows, dates_np, station_ids_np, seq_len, label)
 
-    def _forward(sl):
+    def _forward(idx):
         x_temp = torch.cat([
-            torch.tensor(data_z[sl][None],          dtype=torch.float32),
-            torch.tensor(comb[sl][None],             dtype=torch.float32),
-            torch.tensor(temporal_np[sl][None],      dtype=torch.float32),
+            torch.tensor(data_z[idx][None],          dtype=torch.float32),
+            torch.tensor(comb[idx][None],             dtype=torch.float32),
+            torch.tensor(temporal_np[idx][None],      dtype=torch.float32),
         ], dim=-1).to(DEVICE)
         if mode == 'B':
             x_spat = torch.cat([
-                torch.tensor(nbr_z[sl][None],        dtype=torch.float32),
-                torch.tensor(nbr_mask_np[sl][None],  dtype=torch.float32),
+                torch.tensor(nbr_z[idx][None],        dtype=torch.float32),
+                torch.tensor(nbr_mask_np[idx][None],  dtype=torch.float32),
             ], dim=-1).to(DEVICE)
             return G(x_temp, x_spat).squeeze(0).cpu().numpy()
         return G(x_temp).squeeze(0).cpu().numpy()
 
-    for start in range(0, N - seq_len + 1, step):
-        sl = slice(start, start + seq_len)
-        output[sl] += _forward(sl)
-        counts[sl] += 1
+    for idx in windows:
+        output[idx] += _forward(idx)
+        counts[idx] += 1
 
-    if N >= seq_len:
-        sl = slice(N - seq_len, N)
-        output[sl] += _forward(sl)
-        counts[sl] += 1
-
+    raw_counts = counts.copy()
     counts = np.where(counts == 0, 1, counts)
-    return output / counts
+    completed = output / counts
+
+    combined_missing = comb.astype(bool)
+    observed = ~combined_missing
+    completed[observed] = corrupted_np[observed]
+
+    if return_coverage:
+        return completed, raw_counts
+    return completed
 
 # MAIN
+def neighbor_keys(scenario):
+    return f'neighbor_avg_{scenario}', f'neighbor_mask_{scenario}'
+
+
 def load_npz(name, miss_key, amask_key):
     z = np.load(os.path.join(OUTPUT_DIR, f'preprocessed_{name}.npz'), allow_pickle=True)
-    nbr_avg  = z['neighbor_avg'].astype(np.float32)  if 'neighbor_avg'  in z.files else np.zeros_like(z['data'], dtype=np.float32)
-    nbr_mask = z['neighbor_mask'].astype(np.float32) if 'neighbor_mask' in z.files else np.zeros_like(z['data'], dtype=np.float32)
+    neighbor_label = next(
+        (label for label, (cor_key, _mask_key) in SCENARIOS.items() if cor_key == miss_key),
+        TRAIN_SCENARIO,
+    )
+    nbr_avg_key, nbr_mask_key = neighbor_keys(neighbor_label)
+    missing = [
+        k for k in (miss_key, amask_key, nbr_avg_key, nbr_mask_key, 'dates', 'station_ids')
+        if k not in z.files
+    ]
+    if missing:
+        raise KeyError(f'preprocessed_{name}.npz missing required keys: {missing}')
+    nbr_avg  = z[nbr_avg_key].astype(np.float32)
+    nbr_mask = z[nbr_mask_key].astype(np.float32)
     return (z['data'].astype(np.float32),
             z['real_mask'].astype(np.float32),
             z[miss_key].astype(np.float32),
             z[amask_key].astype(np.float32),
             z['temporal'].astype(np.float32),
-            nbr_avg, nbr_mask)
+            nbr_avg, nbr_mask,
+            z['dates'], z['station_ids'])
 
 def run_one(seq_len, seed):
     """
@@ -342,14 +462,18 @@ def run_one(seq_len, seed):
     print("=" * 62)
     sys.stdout.flush()
 
+    if not torch.cuda.is_available():
+        raise RuntimeError("CUDA bulunamadı. Final WGAN eğitimi CPU üzerinde başlatılmamalı.")
+
     set_seed(seed)
+    git_commit = get_git_commit()
+    device_name = torch.cuda.get_device_name(0)
 
-    miss_key  = f'corrupted_{int(MISS_RATE*100):02d}pct'
-    amask_key = f'art_mask_{int(MISS_RATE*100):02d}pct'
+    miss_key, amask_key = SCENARIOS[TRAIN_SCENARIO]
 
-    tr_d, tr_m, tr_c, tr_a, tr_t, tr_na, tr_nm = load_npz('train', miss_key, amask_key)
-    va_d, va_m, va_c, va_a, va_t, va_na, va_nm = load_npz('val',   miss_key, amask_key)
-    te_d, te_m, te_c, te_a, te_t, te_na, te_nm = load_npz('test',  miss_key, amask_key)
+    tr_d, tr_m, tr_c, tr_a, tr_t, tr_na, tr_nm, tr_dates, tr_sids = load_npz('train', miss_key, amask_key)
+    va_d, va_m, va_c, va_a, va_t, va_na, va_nm, va_dates, va_sids = load_npz('val',   miss_key, amask_key)
+    te_d, te_m, _te_c, _te_a, te_t, te_na, te_nm, te_dates, te_sids = load_npz('test',  miss_key, amask_key)
 
     N_METEO    = tr_d.shape[1]
     N_TEMPORAL = tr_t.shape[1]
@@ -364,8 +488,14 @@ def run_one(seq_len, seed):
     print(f"  Mode={MODE}  IN_DIM_G_TEMP={IN_DIM_G_TEMP}  IN_DIM_G_SPAT={IN_DIM_G_SPAT}  IN_DIM_D={IN_DIM_D}")
     sys.stdout.flush()
 
-    train_ds = MeteoDataset(tr_d, tr_m, tr_c, tr_a, tr_t, tr_na, tr_nm, seq_len, MODE)
-    val_ds   = MeteoDataset(va_d, va_m, va_c, va_a, va_t, va_na, va_nm, seq_len, MODE)
+    train_ds = MeteoDataset(
+        tr_d, tr_m, tr_c, tr_a, tr_t, tr_na, tr_nm, tr_dates, tr_sids,
+        seq_len, MODE, label='train'
+    )
+    val_ds   = MeteoDataset(
+        va_d, va_m, va_c, va_a, va_t, va_na, va_nm, va_dates, va_sids,
+        seq_len, MODE, label='val'
+    )
     train_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True,  num_workers=0, drop_last=True)
     val_loader   = DataLoader(val_ds,   batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
 
@@ -398,24 +528,55 @@ def run_one(seq_len, seed):
         'in_dim_d'     : IN_DIM_D,
         'n_meteo'      : N_METEO,
         'n_temporal'   : N_TEMPORAL,
+        'training_scenario': TRAIN_SCENARIO,
+        'seq_len'      : seq_len,
+        'window_strategy': WINDOW_STRATEGY,
+        'neighbor_strategy': NEIGHBOR_STRATEGY,
+        'test_inference_scenarios': list(SCENARIOS.keys()),
+        'git_commit'  : git_commit,
+        'device'      : str(DEVICE),
+        'device_name' : device_name,
+        'torch_version': torch.__version__,
+        'cuda_version': torch.version.cuda,
         'config'       : {'SEQ_LEN': seq_len, 'HIDDEN_SIZE': HIDDEN_SIZE,
-                          'N_LAYERS': N_LAYERS, 'N_METEO': N_METEO, 'MODE': MODE}
+                          'N_LAYERS': N_LAYERS, 'N_METEO': N_METEO, 'MODE': MODE,
+                          'TRAIN_SCENARIO': TRAIN_SCENARIO,
+                          'NEIGHBOR_STRATEGY': NEIGHBOR_STRATEGY,
+                          'WINDOW_STRATEGY': WINDOW_STRATEGY,
+                          'WINDOW_STRIDE': WINDOW_STRIDE}
     }
     ckpt_path = os.path.join(OUTPUT_DIR, f'gan_model_{mode_tag}.pt')
     torch.save(ckpt, ckpt_path)
+    metadata_path = os.path.join(OUTPUT_DIR, f'wgan_run_metadata_{mode_tag}.json')
+    with open(metadata_path, 'w', encoding='utf-8') as f:
+        json.dump({
+            'seed': seed,
+            'training_scenario': TRAIN_SCENARIO,
+            'seq_len': seq_len,
+            'window_strategy': WINDOW_STRATEGY,
+            'neighbor_strategy': NEIGHBOR_STRATEGY,
+            'test_inference_scenarios': list(SCENARIOS.keys()),
+            'git_commit': git_commit,
+            'device': str(DEVICE),
+            'device_name': device_name,
+            'torch_version': torch.__version__,
+            'cuda_version': torch.version.cuda,
+            'checkpoint_path': ckpt_path,
+        }, f, indent=2)
     print(f"\n  Checkpoint saved → {ckpt_path}")
+
+    print(f"  Run metadata      -> {metadata_path}")
 
     hist_path = os.path.join(OUTPUT_DIR, f'training_history_{mode_tag}.csv')
     history.to_csv(hist_path, index=False)
     print(f"  Training history  → {hist_path}")
 
     # ── Test imputation ───────────────────────────────────────────────────────
-    print("\n  Running test imputation ...")
+    print("\n  Preparing scenario-specific test imputation ...")
     G.load_state_dict(G_state)
-    imp = impute(G, te_d, te_m, te_t, te_na, te_nm, N_METEO, seq_len, MODE)
-    imp_path = os.path.join(OUTPUT_DIR, f'gan_imputed_test_{mode_tag}.npy')
-    np.save(imp_path, imp)
-    print(f"  Test imputation   → {imp_path}  (shape={imp.shape})")
+    te_npz = np.load(os.path.join(OUTPUT_DIR, 'preprocessed_test.npz'), allow_pickle=True)
+    scenario_imputations = {}
+    calibrator = None
 
     # ── Precipitation calibration (fit on val, apply to test) ─────────────────
     scaler_path = os.path.join(OUTPUT_DIR, 'scaler.pkl')
@@ -430,7 +591,10 @@ def run_one(seq_len, seed):
 
             # Build val imputation (needed to fit calibrator)
             print("  Running val imputation for calibration fit ...")
-            val_imp = impute(G, va_d, va_m, va_t, va_na, va_nm, N_METEO, seq_len, MODE)
+            val_imp = impute(
+                G, va_c, va_m, va_a, va_t, va_na, va_nm, va_dates, va_sids,
+                N_METEO, seq_len, MODE, label='val_calibration'
+            )
 
             calibrator = PrecipCalibrator(
                 precip_idx=precip_idx,
@@ -444,20 +608,118 @@ def run_one(seq_len, seed):
                 verbose=True,
             )
 
-            # Apply calibration to ALL cells of the raw GAN output.
-            # art_mask=None is intentional: the GAN's PRECIP output is
-            # unrealistically wet everywhere (not just at masked positions),
-            # so we calibrate the full array.  Observed (non-masked) positions
-            # are untouched by the scaler logic that follows in evaluation.
-            imp_cal = calibrator.apply(imp, art_mask=None)
-            cal_path = os.path.join(OUTPUT_DIR,
-                                    f'gan_imputed_test_{mode_tag}_precipfix.npy')
-            np.save(cal_path, imp_cal)
-            print(f"  Calibrated output → {cal_path}")
-
             json_path = os.path.join(OUTPUT_DIR,
                                      f'precip_calibration_{mode_tag}.json')
             calibrator.save(json_path)
+
+    missing_test_keys = [
+        key
+        for scenario, (cor_key, mask_key) in SCENARIOS.items()
+        for key in (*neighbor_keys(scenario), cor_key, mask_key)
+        if key not in te_npz.files
+    ]
+    if missing_test_keys:
+        raise KeyError(
+            'Missing scenario-specific test arrays in preprocessed_test.npz: '
+            + ', '.join(missing_test_keys)
+        )
+
+    print("\n  Running scenario-specific test imputation ...")
+    audit_rows = []
+    for scenario, (cor_key, mask_key) in SCENARIOS.items():
+        nbr_avg_key, nbr_mask_key = neighbor_keys(scenario)
+        scenario_tag = f'modeB_{scenario}_seed{seed}' if MODE == 'B' else f'{scenario}_seed{seed}'
+        corrupted_scenario = te_npz[cor_key].astype(np.float32)
+        art_mask_scenario = te_npz[mask_key].astype(np.float32)
+        imp, coverage = impute(
+            G,
+            corrupted_scenario,
+            te_m,
+            art_mask_scenario,
+            te_t,
+            te_npz[nbr_avg_key].astype(np.float32),
+            te_npz[nbr_mask_key].astype(np.float32),
+            te_dates,
+            te_sids,
+            N_METEO,
+            seq_len,
+            MODE,
+            label=f'test_{scenario}',
+            return_coverage=True,
+        )
+        scenario_imputations[scenario] = imp
+
+        combined_missing = ((te_m == 0) | (art_mask_scenario == 1))
+        observed = ~combined_missing
+        max_observed_diff = (
+            float(np.max(np.abs(imp[observed] - corrupted_scenario[observed])))
+            if observed.any() else 0.0
+        )
+        assert imp.shape == te_d.shape
+        assert np.isfinite(imp).all()
+        assert np.allclose(imp[observed], corrupted_scenario[observed], atol=1e-6)
+        assert np.isfinite(imp[combined_missing]).all()
+        assert coverage.min() >= 1
+        assert np.all(coverage > 0)
+
+        imp_path = os.path.join(OUTPUT_DIR, f'gan_imputed_test_{scenario_tag}.npy')
+        np.save(imp_path, imp)
+        print(f"  Test imputation [{scenario}] -> {imp_path}  (shape={imp.shape})")
+
+        audit_rows.append({
+            'seed': seed,
+            'scenario': scenario,
+            'corrupted_key': cor_key,
+            'art_mask_key': mask_key,
+            'neighbor_avg_key': nbr_avg_key,
+            'neighbor_mask_key': nbr_mask_key,
+            'checkpoint_path': ckpt_path,
+            'output_path': imp_path,
+            'output_shape': f'{imp.shape[0]}x{imp.shape[1]}',
+            'finite_check': True,
+            'missing_cell_finite_check': True,
+            'observed_cell_preservation': True,
+            'max_observed_cell_difference': max_observed_diff,
+            'coverage_min': float(coverage.min()),
+            'coverage_mean': float(coverage.mean()),
+            'coverage_max': float(coverage.max()),
+            'uncovered_rows': int((coverage.sum(axis=1) == 0).sum()),
+            'artificially_masked_cell_count': int(art_mask_scenario.sum()),
+            'merge_method': 'mean_over_overlapping_station_windows_observed_cells_restored',
+            'git_commit': git_commit,
+        })
+
+        if calibrator is not None:
+            # Calibrate the completed GAN output and keep observed cells untouched.
+            imp_cal = calibrator.apply(imp, art_mask=None)
+            imp_cal[observed] = corrupted_scenario[observed]
+            cal_path = os.path.join(OUTPUT_DIR, f'gan_imputed_test_{scenario_tag}_precipfix.npy')
+            np.save(cal_path, imp_cal)
+            print(f"  Calibrated output [{scenario}] -> {cal_path}")
+
+    scenario_names = list(scenario_imputations.keys())
+    pairwise_rows = []
+    for i, left in enumerate(scenario_names):
+        for right in scenario_names[i + 1:]:
+            left_imp = scenario_imputations[left]
+            right_imp = scenario_imputations[right]
+            arrays_equal = bool(np.array_equal(left_imp, right_imp))
+            assert not arrays_equal
+            pairwise_rows.append({
+                'seed': seed,
+                'scenario_a': left,
+                'scenario_b': right,
+                'arrays_equal': arrays_equal,
+                'mean_abs_difference': float(np.mean(np.abs(left_imp - right_imp))),
+                'git_commit': git_commit,
+            })
+
+    audit_path = os.path.join(OUTPUT_DIR, f'wgan_scenario_audit_modeB_seed{seed}.csv')
+    pd.DataFrame(audit_rows).to_csv(audit_path, index=False)
+    print(f"  Scenario audit -> {audit_path}")
+    pairwise_path = os.path.join(OUTPUT_DIR, f'wgan_scenario_pairwise_diff_modeB_seed{seed}.csv')
+    pd.DataFrame(pairwise_rows).to_csv(pairwise_path, index=False)
+    print(f"  Scenario pairwise differences -> {pairwise_path}")
 
     # ── Metrics in original units (via scaler) ────────────────────────────────
     scaler_path = os.path.join(OUTPUT_DIR, 'scaler.pkl')
@@ -467,17 +729,15 @@ def run_one(seq_len, seed):
         sc    = scaler_data['scaler']
         mvars = scaler_data['meteo_vars']
 
-        imp_orig  = sc.inverse_transform(np.clip(imp, 0, 1))
         te_d_orig = sc.inverse_transform(np.nan_to_num(te_d, nan=0.0))
 
-        te_npz = np.load(os.path.join(OUTPUT_DIR, 'preprocessed_test.npz'), allow_pickle=True)
         print()
-        for scenario_key in ['art_mask_10pct', 'art_mask_20pct',
-                             'art_mask_block7d', 'art_mask_block30d']:
-            if scenario_key not in te_npz.files:
+        for scenario, (_cor_key, mask_key) in SCENARIOS.items():
+            if scenario not in scenario_imputations or mask_key not in te_npz.files:
                 continue
-            am_np = te_npz[scenario_key].astype(np.float32)
-            print(f"  Test metrics (original units) — {scenario_key}  [Mode {MODE}  SEQ={seq_len}]:")
+            imp_orig = sc.inverse_transform(np.clip(scenario_imputations[scenario], 0, 1))
+            am_np = te_npz[mask_key].astype(np.float32)
+            print(f"  Test metrics (original units) - {scenario} ({mask_key})  [Mode {MODE}  SEQ={seq_len}]:")
             rmse_list, mae_list = [], []
             for i, v in enumerate(mvars):
                 sel = am_np[:, i].astype(bool)
@@ -494,10 +754,12 @@ def run_one(seq_len, seed):
         # Physical consistency
         try:
             ti, tm, tx = mvars.index('TMIN'), mvars.index('TMEAN'), mvars.index('TMAX')
-            viol = int(((imp_orig[:, ti] > imp_orig[:, tm]) |
-                        (imp_orig[:, tm] > imp_orig[:, tx])).sum())
-            pct  = 100.0 * viol / len(imp_orig)
-            print(f"  Physical check (raw GAN output): TMIN<=TMEAN<=TMAX violations = {viol} ({pct:.3f}%)")
+            for scenario, imp_norm in scenario_imputations.items():
+                imp_orig = sc.inverse_transform(np.clip(imp_norm, 0, 1))
+                viol = int(((imp_orig[:, ti] > imp_orig[:, tm]) |
+                            (imp_orig[:, tm] > imp_orig[:, tx])).sum())
+                pct  = 100.0 * viol / len(imp_orig)
+                print(f"  Physical check (raw GAN output, {scenario}): TMIN<=TMEAN<=TMAX violations = {viol} ({pct:.3f}%)")
             gt_raw = sc.inverse_transform(np.nan_to_num(te_d, nan=0.0))
             gt_viol = int(((gt_raw[:, ti] > gt_raw[:, tm]) |
                            (gt_raw[:, tm] > gt_raw[:, tx])).sum())
@@ -519,12 +781,12 @@ def main():
 
     MODE = 'A'  → seed robustness: SEQ_LEN=30, seeds=[42, 123, 456]
                   saves: gan_model_seed{s}.pt / training_history_seed{s}.csv
-                         gan_imputed_test_seed{s}.npy
+                         gan_imputed_test_{scenario}_seed{s}.npy
 
-    MODE = 'B'  → pilot experiment: SEQ_LEN=30, SEED=42
-                  saves: gan_model_modeB_seed42.pt
-                         training_history_modeB_seed42.csv
-                         gan_imputed_test_modeB_seed42.npy
+    MODE = 'B'  → robustness experiment: SEQ_LEN=30, seeds=[42, 123, 456]
+                  saves: gan_model_modeB_seed{s}.pt
+                         training_history_modeB_seed{s}.csv
+                         gan_imputed_test_modeB_{scenario}_seed{s}.npy
     """
     if MODE == 'B':
         # ── Mode B robustness run — 3 seeds ──────────────────────────────────

@@ -19,8 +19,19 @@ from sklearn.metrics import f1_score, precision_score, recall_score
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 WET_THRESH  = 0.1
 P95_THRESH  = 16.74
-SEEDS       = [42, 123, 456]
-COR_KEY     = 'corrupted_10pct'
+SEEDS       = [
+    int(s.strip())
+    for s in os.environ.get('DLPIF_SEEDS', '42,123,456').split(',')
+    if s.strip()
+]
+TRAIN_SCENARIO = '10pct'
+TRAIN_COR_KEY = 'corrupted_10pct'
+SCENARIOS = [
+    ('10pct',    'corrupted_10pct',    'art_mask_10pct'),
+    ('20pct',    'corrupted_20pct',    'art_mask_20pct'),
+    ('block7d',  'corrupted_block7d',  'art_mask_block7d'),
+    ('block30d', 'corrupted_block30d', 'art_mask_block30d'),
+]
 
 
 def load_scaler():
@@ -30,6 +41,14 @@ def load_scaler():
 
 def load_npz(split):
     return np.load(os.path.join(OUTPUT_DIR, f'preprocessed_{split}.npz'), allow_pickle=True)
+
+def neighbor_keys(scenario):
+    return f'neighbor_avg_{scenario}', f'neighbor_mask_{scenario}'
+
+def require_keys(z, keys, context):
+    missing = [k for k in keys if k not in z.files]
+    if missing:
+        raise KeyError(f'{context}: missing required keys {missing}')
 
 def inv(sc, arr):
     a = np.nan_to_num(arr.copy().astype(np.float64), nan=0.0)
@@ -52,14 +71,14 @@ def build_occ_X(cor, tmp, na, nm, pidx):
     assert X.shape[1] == 25
     return X
 
-def build_amt_X(sc, z, cor_key, pidx):
+def build_amt_X(sc, z, cor_key, pidx, neighbor_avg_key, neighbor_mask_key):
     """26-feature matrix — local PRECIP hard-zeroed (Stage 2, unchanged)."""
     cor = inv(sc, z[cor_key].astype(np.float32)).astype(np.float32)
     cor[:, pidx] = 0.0
     return np.concatenate([cor,
                            z['temporal'].astype(np.float32),
-                           inv(sc, z['neighbor_avg'].astype(np.float32)).astype(np.float32),
-                           z['neighbor_mask'].astype(np.float32)], axis=1)
+                           inv(sc, z[neighbor_avg_key].astype(np.float32)).astype(np.float32),
+                           z[neighbor_mask_key].astype(np.float32)], axis=1)
 
 def apply_qmap(wet_pred_mm, qmap):
     if qmap is None or len(wet_pred_mm) == 0: return wet_pred_mm
@@ -123,22 +142,22 @@ def main():
     pidx = mv.index('PRECIP')
 
     tr = load_npz('train'); va = load_npz('val'); te = load_npz('test')
+    tr_na_key, tr_nm_key = neighbor_keys(TRAIN_SCENARIO)
+    require_keys(tr, [TRAIN_COR_KEY, tr_na_key, tr_nm_key], 'train')
+    require_keys(va, [TRAIN_COR_KEY, tr_na_key, tr_nm_key], 'val')
 
-    # Pre-build static feature matrices
-    X_tr_full = build_occ_X(tr[COR_KEY].astype(np.float32),
+    # Train/validation correction models on the 10% random missingness context.
+    # Test-time feature matrices are built per scenario below; using one test
+    # matrix for every scenario would hide the actual 20%, 7d, and 30d outages.
+    X_tr_full = build_occ_X(tr[TRAIN_COR_KEY].astype(np.float32),
                             tr['temporal'].astype(np.float32),
-                            tr['neighbor_avg'].astype(np.float32),
-                            tr['neighbor_mask'].astype(np.float32), pidx)
-    X_va_full = build_occ_X(va[COR_KEY].astype(np.float32),
+                            tr[tr_na_key].astype(np.float32),
+                            tr[tr_nm_key].astype(np.float32), pidx)
+    X_va_full = build_occ_X(va[TRAIN_COR_KEY].astype(np.float32),
                             va['temporal'].astype(np.float32),
-                            va['neighbor_avg'].astype(np.float32),
-                            va['neighbor_mask'].astype(np.float32), pidx)
-    X_te_full = build_occ_X(te[COR_KEY].astype(np.float32),
-                            te['temporal'].astype(np.float32),
-                            te['neighbor_avg'].astype(np.float32),
-                            te['neighbor_mask'].astype(np.float32), pidx)
-    X_te_amt  = build_amt_X(sc, te, COR_KEY, pidx)
-    X_tr_amt  = build_amt_X(sc, tr, COR_KEY, pidx)
+                            va[tr_na_key].astype(np.float32),
+                            va[tr_nm_key].astype(np.float32), pidx)
+    X_tr_amt  = build_amt_X(sc, tr, TRAIN_COR_KEY, pidx, tr_na_key, tr_nm_key)
 
     tr_gt = inv(sc, tr['data'].astype(np.float32))[:,pidx]
     va_gt = inv(sc, va['data'].astype(np.float32))[:,pidx]
@@ -154,13 +173,37 @@ def main():
     va_wet_mm = va_gt[va_gt > WET_THRESH]
     qmap = np.quantile(va_wet_mm, np.linspace(0,1,201)).astype(np.float32) if len(va_wet_mm)>=10 else None
 
-    SCENARIOS = [('10pct','art_mask_10pct'),('20pct','art_mask_20pct'),
-                 ('block7d','art_mask_block7d'),('block30d','art_mask_block30d')]
+    scen_features = {}
+    for scen_label, cor_key, mask_key in SCENARIOS:
+        na_key, nm_key = neighbor_keys(scen_label)
+        require_keys(te, [cor_key, mask_key, na_key, nm_key], f'test/{scen_label}')
+        scen_features[scen_label] = dict(
+            X_occ=build_occ_X(te[cor_key].astype(np.float32),
+                              te['temporal'].astype(np.float32),
+                              te[na_key].astype(np.float32),
+                              te[nm_key].astype(np.float32), pidx),
+            X_amt=build_amt_X(sc, te, cor_key, pidx, na_key, nm_key),
+        )
 
     all_records = []
     seed_meta   = []
 
     print(f'\n  Feature dim={X_tr_occ.shape[1]}  Train obs={len(X_tr_occ):,}  Val obs={len(X_va_occ):,}')
+
+    missing_raw = [
+        os.path.join(OUTPUT_DIR, f'gan_imputed_test_modeB_{scen_label}_seed{seed}.npy')
+        for seed in SEEDS
+        for scen_label, _, _ in SCENARIOS
+        if not os.path.exists(
+            os.path.join(OUTPUT_DIR, f'gan_imputed_test_modeB_{scen_label}_seed{seed}.npy')
+        )
+    ]
+    if missing_raw:
+        missing_names = ', '.join(os.path.basename(p) for p in missing_raw)
+        raise FileNotFoundError(
+            'Missing scenario-specific raw GAN outputs required for a complete multiseed rerun: '
+            f'{missing_names}. Run 02_wgan_gp_imputation.py for every seed first.'
+        )
 
     for seed in SEEDS:
         print(f'\n{"="*60}')
@@ -183,33 +226,15 @@ def main():
                         n_features=25, local_precip_excluded=True,
                         neighbor_precip_included=True,
                         threshold_strategy='val_F1_maximization',
+                        training_scenario=TRAIN_SCENARIO,
+                        training_corruption_key=TRAIN_COR_KEY,
+                        test_corruption_strategy='scenario_specific',
+                        neighbor_strategy='scenario_specific',
                         feature_blocks=['corrupted_no_precip(6)','temporal(5)',
-                                        'neighbor_avg(7)','neighbor_mask(7)'],
+                                        'neighbor_avg_scenario(7)','neighbor_mask_scenario(7)'],
                         **vm_copy)
         with open(pfx+'.json','w',encoding='utf-8') as f:
             json.dump(meta_out, f, indent=2)
-
-        # ── Test occurrence predictions ───────────────────────────────────────
-        te_proba   = occ_rf.predict_proba(X_te_full)[:,1]
-        te_wet_pred = (te_proba >= occ_cut).astype(bool)
-        print(f'  Test: wet_pred={te_wet_pred.mean():.4f}  gt_wet={(te_gt>WET_THRESH).mean():.4f}')
-
-        # ── Load raw GAN base imputation (produced by Step 2: 02_wgan_gp_imputation.py) ──────
-        p2_path = os.path.join(OUTPUT_DIR, f'gan_imputed_test_modeB_seed{seed}.npy')
-        if not os.path.exists(p2_path):
-            print(f'  [SKIP] raw GAN base npy not found for seed {seed}')
-            continue
-        p2_norm = np.load(p2_path).astype(np.float32)
-        p2_mm   = np.clip(p2_norm[:,pidx],0,1)*sc.data_range_[pidx]+sc.data_min_[pidx]
-
-        # ── Build Precip2Stage clean (global occurrence correction) ──────────
-        # imp_p2s applies occurrence RF globally (not scenario-specific):
-        imp_p2s = p2_mm.copy()
-        imp_p2s[~te_wet_pred] = 0.0
-        if qmap is not None and te_wet_pred.sum()>0:
-            raw_wet = np.clip(imp_p2s[te_wet_pred],0,None)
-            imp_p2s[te_wet_pred] = apply_qmap(raw_wet, qmap)
-        imp_p2s = np.clip(imp_p2s, 0, None)
 
         # ── Train seed-specific AmountRF ──────────────────────────────────────
         amt_rf = RandomForestRegressor(n_estimators=400, random_state=seed,
@@ -221,13 +246,28 @@ def main():
         # was saved after looping all scenarios on the same amt_mm buffer,
         # causing cross-scenario contamination (recomputed F1 ~0.98 vs ref ~0.76).
         # Now each scenario gets an independent copy: no cross-contamination.
-        for scen_label, mask_key in SCENARIOS:
-            if mask_key not in te.files: continue
+        for scen_label, cor_key, mask_key in SCENARIOS:
+            # Raw WGAN base imputation generated with this scenario's
+            # corrupted input and artificial mask.
+            p2_path = os.path.join(OUTPUT_DIR, f'gan_imputed_test_modeB_{scen_label}_seed{seed}.npy')
+            p2_norm = np.load(p2_path).astype(np.float32)
+            p2_mm   = np.clip(p2_norm[:,pidx],0,1)*sc.data_range_[pidx]+sc.data_min_[pidx]
+
+            sf = scen_features[scen_label]
             m = te[mask_key].astype(np.float32)[:,pidx] > 0.5
             gt_m = te_gt[m]; n_m = int(m.sum())
 
-            # -- Precip2Stage: global occ-corrected, saved per scenario --
-            p2s_scen = imp_p2s.copy()
+            te_proba = occ_rf.predict_proba(sf['X_occ'])[:,1]
+            te_wet_pred = (te_proba >= occ_cut).astype(bool)
+
+            # -- Precip2Stage: scenario-specific occurrence correction --
+            p2s_scen = p2_mm.copy()
+            p2s_scen[~te_wet_pred] = 0.0
+            if qmap is not None and te_wet_pred.sum() > 0:
+                raw_wet = np.clip(p2s_scen[te_wet_pred], 0, None)
+                p2s_scen[te_wet_pred] = apply_qmap(raw_wet, qmap)
+            p2s_scen = np.clip(p2s_scen, 0, None)
+
             p2s_full_scen = p2_norm.copy()
             p2s_full_scen[:,pidx] = to_norm(sc, p2s_scen, pidx)
             np.save(os.path.join(OUTPUT_DIR,
@@ -235,11 +275,11 @@ def main():
                 p2s_full_scen.astype(np.float32))
 
             # -- AmountRF: FRESH start for every scenario (no cross-contamination) --
-            amt_scen = imp_p2s.copy()
+            amt_scen = p2s_scen.copy()
             apply_sel = m & te_wet_pred
             if apply_sel.sum() > 0:
                 amt_scen[apply_sel] = np.maximum(
-                    amt_rf.predict(X_te_amt[apply_sel]), 0.0)
+                    amt_rf.predict(sf['X_amt'][apply_sel]), 0.0)
             amt_scen[m & ~te_wet_pred] = 0.0
 
             amt_full_scen = p2_norm.copy()
@@ -252,7 +292,8 @@ def main():
             r1 = metrics(gt_m, p2s_scen[m], f'Precip2Stage_clean_seed{seed}', scen_label, n_m)
             r2 = metrics(gt_m, amt_scen[m], f'AmountRF_clean_seed{seed}',     scen_label, n_m)
             all_records += [r1, r2]
-            print(f'  [{scen_label}] P2S F1={r1["f1"]:.4f} bias={r1["bias"]:+.4f}'
+            print(f'  [{scen_label} | {cor_key}] wet_pred={te_wet_pred[m].mean():.4f} '
+                  f'P2S F1={r1["f1"]:.4f} bias={r1["bias"]:+.4f}'
                   f'  AMT F1={r2["f1"]:.4f} RMSE_wet={r2["rmse_wet"]} MAE_p95={r2["mae_p95"]}')
 
     # ── Save ─────────────────────────────────────────────────────────────────

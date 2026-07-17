@@ -350,32 +350,162 @@ def random_missingness(data: np.ndarray, real_mask: np.ndarray,
     return corrupted, art_mask
 
 def block_missingness(data: np.ndarray, real_mask: np.ndarray,
-                      block_len: int, miss_rate: float, seed: int = 42):
-    """Introduce consecutive block gaps."""
-    rng      = np.random.default_rng(seed)
-    art_mask = np.zeros_like(real_mask, dtype=np.float32)
-    corrupted= data.copy()
-    N        = data.shape[0]
+                      dates: np.ndarray, station_ids: np.ndarray,
+                      block_len: int, miss_rate: float, seed: int = 42,
+                      variable_names=None, scenario_label=None):
+    """Hide complete station-variable calendar-day blocks.
 
-    for col in range(data.shape[1]):
-        obs_idx  = np.where(real_mask[:, col] == 1)[0]
-        n_total  = len(obs_idx)
-        n_remove = int(n_total * miss_rate)
-        if n_remove == 0:
+    Candidate blocks are accepted only when every calendar day in the window
+    exists for the station and the selected variable is naturally observed for
+    the whole window.
+    """
+    rng       = np.random.default_rng(seed)
+    art_mask  = np.zeros_like(real_mask, dtype=np.float32)
+    corrupted = data.copy()
+    scenario  = scenario_label or f'block{block_len}d'
+    names     = list(variable_names) if variable_names is not None else [
+        f'var_{i}' for i in range(data.shape[1])
+    ]
+
+    date_series = pd.Series(pd.to_datetime(dates)).dt.normalize()
+    station_arr = np.asarray(station_ids)
+    diag_rows   = []
+
+    for station in pd.unique(station_arr):
+        station_rows = np.where(station_arr == station)[0]
+        if len(station_rows) == 0:
             continue
-        n_blocks = max(1, n_remove // block_len)
-        max_st   = n_total - block_len
-        if max_st <= 0:
-            continue
-        n_blocks = min(n_blocks, max_st // max(block_len, 1))
-        if n_blocks == 0:
-            continue
-        starts = rng.choice(max_st, size=n_blocks, replace=False)
-        for s in starts:
-            blk = obs_idx[s: s + block_len]
-            art_mask[blk, col]  = 1
-            corrupted[blk, col] = np.nan
-    return corrupted, art_mask
+
+        station_dates = date_series.iloc[station_rows].to_numpy()
+        ordered_rows = station_rows[np.argsort(station_dates)]
+
+        row_by_date = {}
+        ordered_dates = []
+        for row in ordered_rows:
+            day = pd.Timestamp(date_series.iloc[row])
+            if day in row_by_date:
+                raise ValueError(f'Duplicate DATE/STATION_ID row for {station} on {day.date()}')
+            row_by_date[day] = int(row)
+            ordered_dates.append(day)
+
+        for col in range(data.shape[1]):
+            observed_count = int(real_mask[ordered_rows, col].sum())
+            target_missing = int(round(observed_count * miss_rate))
+            target_blocks = int(round(target_missing / block_len)) if block_len > 0 else 0
+            if target_missing > 0 and target_blocks == 0:
+                target_blocks = 1
+
+            candidates = []
+            for start_day in ordered_dates:
+                block_days = tuple(start_day + pd.Timedelta(days=i) for i in range(block_len))
+                block_rows = tuple(row_by_date.get(day) for day in block_days)
+                if any(row is None for row in block_rows):
+                    continue
+                if np.all(real_mask[np.array(block_rows, dtype=int), col] == 1):
+                    candidates.append((start_day, block_rows, block_days))
+
+            reserved_days = set()
+            selected_lengths = []
+            if target_blocks > 0 and candidates:
+                for cand_idx in rng.permutation(len(candidates)):
+                    _start_day, block_rows, block_days = candidates[int(cand_idx)]
+                    if any(day in reserved_days for day in block_days):
+                        continue
+                    rows = np.array(block_rows, dtype=int)
+                    art_mask[rows, col] = 1
+                    corrupted[rows, col] = np.nan
+                    reserved_days.update(block_days)
+                    reserved_days.add(block_days[0] - pd.Timedelta(days=1))
+                    reserved_days.add(block_days[-1] + pd.Timedelta(days=1))
+                    selected_lengths.append(len(rows))
+                    if len(selected_lengths) >= target_blocks:
+                        break
+
+            actual_missing = int(sum(selected_lengths))
+            diag_rows.append({
+                'scenario': scenario,
+                'variable': names[col] if col < len(names) else f'var_{col}',
+                'station': station,
+                'target_missing_count': target_missing,
+                'actual_missing_count': actual_missing,
+                'missing_rate': (actual_missing / observed_count) if observed_count else 0.0,
+                'number_of_blocks': len(selected_lengths),
+                'median_block_length': float(np.median(selected_lengths)) if selected_lengths else np.nan,
+                'min_block_length': int(min(selected_lengths)) if selected_lengths else 0,
+                'max_block_length': int(max(selected_lengths)) if selected_lengths else 0,
+            })
+
+    return corrupted, art_mask, pd.DataFrame(diag_rows)
+
+
+def diagnose_block_mask(art_mask: np.ndarray, real_mask: np.ndarray,
+                        dates: np.ndarray, station_ids: np.ndarray,
+                        block_len: int, miss_rate: float,
+                        variable_names=None, scenario_label=None):
+    """Assert and summarize final artificial block-mask run lengths."""
+    scenario = scenario_label or f'block{block_len}d'
+    names = list(variable_names) if variable_names is not None else [
+        f'var_{i}' for i in range(art_mask.shape[1])
+    ]
+    bad_natural = int(((art_mask > 0.5) & (real_mask < 0.5)).sum())
+    if bad_natural:
+        raise AssertionError(
+            f'{scenario}: artificial block mask covers {bad_natural} naturally missing cells'
+        )
+
+    date_series = pd.Series(pd.to_datetime(dates)).dt.normalize()
+    station_arr = np.asarray(station_ids)
+    rows_out = []
+
+    for station in pd.unique(station_arr):
+        station_rows = np.where(station_arr == station)[0]
+        station_dates = date_series.iloc[station_rows].to_numpy()
+        ordered_rows = station_rows[np.argsort(station_dates)]
+        ordered_dates = [pd.Timestamp(date_series.iloc[row]) for row in ordered_rows]
+
+        for col in range(art_mask.shape[1]):
+            run_lengths = []
+            run_len = 0
+            prev_day = None
+            for row, day in zip(ordered_rows, ordered_dates):
+                is_masked = bool(art_mask[row, col] > 0.5)
+                is_next_day = prev_day is not None and day == prev_day + pd.Timedelta(days=1)
+                if is_masked and run_len and is_next_day:
+                    run_len += 1
+                elif is_masked:
+                    if run_len:
+                        run_lengths.append(run_len)
+                    run_len = 1
+                else:
+                    if run_len:
+                        run_lengths.append(run_len)
+                    run_len = 0
+                prev_day = day
+            if run_len:
+                run_lengths.append(run_len)
+
+            if run_lengths and (min(run_lengths) != block_len or max(run_lengths) != block_len):
+                raise AssertionError(
+                    f'{scenario}: {station} {names[col]} has block lengths '
+                    f'{sorted(set(run_lengths))}, expected only {block_len}'
+                )
+
+            observed_count = int(real_mask[ordered_rows, col].sum())
+            actual_missing = int(sum(run_lengths))
+            rows_out.append({
+                'scenario': scenario,
+                'variable': names[col] if col < len(names) else f'var_{col}',
+                'station': station,
+                'target_missing_count': int(round(observed_count * miss_rate)),
+                'actual_missing_count': actual_missing,
+                'missing_rate': (actual_missing / observed_count) if observed_count else 0.0,
+                'number_of_blocks': len(run_lengths),
+                'median_block_length': float(np.median(run_lengths)) if run_lengths else np.nan,
+                'min_block_length': int(min(run_lengths)) if run_lengths else 0,
+                'max_block_length': int(max(run_lengths)) if run_lengths else 0,
+            })
+
+    return pd.DataFrame(rows_out)
 
 SPATIAL_RAW_COLS = ['LAT', 'LON', 'ELEV']
 
@@ -437,6 +567,14 @@ def compute_neighbor_avg(data_norm, station_ids_arr, A_knn, station_list):
     print(f"     neighbor_avg coverage: {100.0 * mask.mean():.1f}% of (date,station,var) cells have ≥1 neighbour")
     return neighbor_avg.reshape(N, V).astype(np.float32), \
            neighbor_mask.reshape(N, V).astype(np.float32)
+
+
+def compute_scenario_neighbor_avg(data_norm, station_ids_arr, A_knn, station_list, label):
+    """Compute neighbor features from the same corrupted array used by a scenario."""
+    if A_knn is None:
+        return np.zeros_like(data_norm, dtype=np.float32), np.zeros_like(data_norm, dtype=np.float32)
+    print(f"     scenario neighbor [{label}] ...")
+    return compute_neighbor_avg(data_norm, station_ids_arr, A_knn, station_list)
 def main():
     df = load_data(DATA_PATH)
 
@@ -469,6 +607,7 @@ def main():
     # Station list (in sort order, matching adjacency matrix)
     station_list = sorted(df['STATION_ID'].unique().tolist())
     A_knn        = adj_data['A_knn'] if adj_data is not None else None
+    block_diag_frames = []
 
     for split_name, split_df in splits.items():
         data, real_mask, temporal, spatial, dates, station_ids = prepare_arrays(
@@ -493,6 +632,9 @@ def main():
             )
             save_dict['neighbor_avg']  = nbr_avg
             save_dict['neighbor_mask'] = nbr_mask
+        else:
+            save_dict['neighbor_avg']  = np.zeros_like(data, dtype=np.float32)
+            save_dict['neighbor_mask'] = np.zeros_like(data, dtype=np.float32)
 
         # Random missingness scenarios: 10%, 20%
         for rate in MISS_RATES:
@@ -501,22 +643,49 @@ def main():
             key    = f'{int(rate*100):02d}pct'
             save_dict[f'corrupted_{key}'] = c
             save_dict[f'art_mask_{key}']  = am
+            nbr_avg_s, nbr_mask_s = compute_scenario_neighbor_avg(
+                c, station_ids, A_knn, station_list, key
+            )
+            save_dict[f'neighbor_avg_{key}'] = nbr_avg_s
+            save_dict[f'neighbor_mask_{key}'] = nbr_mask_s
             n_hidden = int(am.sum())
             print(f"   {split_name:5s} | random {rate*100:4.0f}% → {n_hidden:,} values hidden")
 
         # Block missingness — test split only (7d & 30d)
         if split_name == 'test':
             for blen in BLOCK_LENS:
-                c, am = block_missingness(data, real_mask, blen, BLOCK_RATE,
-                                          seed=RANDOM_SEED + blen)
+                c, am, _selection_diag = block_missingness(
+                    data, real_mask, dates, station_ids, blen, BLOCK_RATE,
+                    seed=RANDOM_SEED + blen,
+                    variable_names=meteo_vars,
+                    scenario_label=f'block{blen}d',
+                )
+                scen_key = f'block{blen}d'
                 save_dict[f'corrupted_block{blen}d'] = c
                 save_dict[f'art_mask_block{blen}d']  = am
+                nbr_avg_s, nbr_mask_s = compute_scenario_neighbor_avg(
+                    c, station_ids, A_knn, station_list, scen_key
+                )
+                save_dict[f'neighbor_avg_{scen_key}'] = nbr_avg_s
+                save_dict[f'neighbor_mask_{scen_key}'] = nbr_mask_s
+                diag = diagnose_block_mask(
+                    am, real_mask, dates, station_ids, blen, BLOCK_RATE,
+                    variable_names=meteo_vars,
+                    scenario_label=scen_key,
+                )
+                block_diag_frames.append(diag)
                 n_hidden = int(am.sum())
                 print(f"   {split_name:5s} | block {blen:3d}d      → {n_hidden:,} values hidden")
 
         out_path = os.path.join(OUTPUT_DIR, f'preprocessed_{split_name}.npz')
         np.savez_compressed(out_path, **save_dict)
         print(f"   → Saved: {out_path}  (data={data.shape}, temporal={temporal.shape})")
+
+    if block_diag_frames:
+        diag_df = pd.concat(block_diag_frames, ignore_index=True)
+        diag_path = os.path.join(OUTPUT_DIR, 'block_missingness_diagnostics.csv')
+        diag_df.to_csv(diag_path, index=False)
+        print(f"   Block diagnostics saved -> {diag_path}")
 
     # 9. Summary stats (original scale)
     print("\n9. Train statistics (original scale):")
