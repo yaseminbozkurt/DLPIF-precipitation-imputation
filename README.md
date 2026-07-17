@@ -1,7 +1,7 @@
 # DLPIF — Decoupled Learning–Physical Imputation Framework
 
-> *"Beyond RMSE: Decoupling Occurrence and Amount for Physically Consistent Precipitation Imputation"*  
-> Submitted to *Journal of Hydrology*
+> *"Beyond RMSE: Occurrence–Amount Decoupling for Hydrologically Consistent Precipitation Imputation"*  
+> Target journal: *MDPI Hydrology*
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)](https://pytorch.org/)
@@ -12,7 +12,7 @@
 
 ## Overview
 
-Standard multivariate imputation models optimise for RMSE across all variables and time steps. When applied to precipitation, this produces **drizzle-like artefacts**: low-intensity nonzero values persist during physically dry periods, inflating wet-day frequency while underestimating extreme events.
+Standard multivariate imputation models optimise for RMSE across all variables and time steps. When applied to precipitation, this produces **drizzle-like artefacts**: low-intensity nonzero values persist during structurally dry periods, inflating wet-day frequency while underestimating extreme events.
 
 **DLPIF** addresses this mismatch through a two-stage post-processing layer on top of a continuous multivariate base imputer:
 
@@ -61,11 +61,11 @@ Incomplete meteorological observations
    + quantile mapping to validation wet-day distribution
          |
          v
-   [Physical Consistency]
+   [Hydrological Consistency]
    Dry positions forced to 0.0 mm; negatives clipped
          |
          v
-   Physically consistent precipitation reconstruction
+   Hydrologically consistent precipitation reconstruction
 ```
 
 ---
@@ -288,9 +288,9 @@ RandomForestRegressor(n_estimators=400, min_samples_leaf=2,
 
 ```bibtex
 @article{bozkurt2026dlpif,
-  title   = {Beyond RMSE: Decoupling Occurrence and Amount for Physically Consistent Precipitation Imputation},
+  title   = {Beyond RMSE: Occurrence--Amount Decoupling for Hydrologically Consistent Precipitation Imputation},
   author  = {Bozkurt, Yasemin and Serttaş, Soydan and Bakır, Çiğdem},
-  journal = {Journal of Hydrology},
+  journal = {Hydrology},
   year    = {2026},
   note    = {Under review}
 }
