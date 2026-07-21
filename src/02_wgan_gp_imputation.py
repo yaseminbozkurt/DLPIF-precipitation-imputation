@@ -8,7 +8,7 @@ Mode A: Input = [corrupted | comb_mask | temporal]
 NOTE: Legacy defaults (gan_model_seed42.pt, training_history.csv, etc.)
       are NOT written during the ablation run.
 """
-import sys, io, os, time, random, pickle, json, subprocess
+import sys, io, os, time, random, pickle, json, subprocess, argparse
 try:
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 except Exception:
@@ -255,7 +255,12 @@ def gradient_penalty(D, real, fake, device):
     B     = real.size(0)
     alpha = torch.rand(B, 1, 1, device=device).expand_as(real)
     interp = (alpha * real + (1 - alpha) * fake).requires_grad_(True)
-    d_out  = D(interp)
+    # WGAN-GP requires second-order gradients through the discriminator.
+    # cuDNN-backed LSTMs do not support double backward, so disable cuDNN
+    # only for this discriminator forward pass.
+    with torch.backends.cudnn.flags(enabled=False):
+        d_out = D(interp)
+
     grad   = torch.autograd.grad(
         d_out, interp,
         grad_outputs=torch.ones_like(d_out),
@@ -776,25 +781,48 @@ def run_one(seq_len, seed):
 
     return best_ep, best_rmse
 
+def parse_args():
+    """--seed / --mode CLI overrides.
+
+    README.md documents `python 02_wgan_gp_imputation.py --seed 42 --mode B`
+    as the reproduction command, but until this patch the script ignored
+    both flags entirely and always ran all three seeds [42, 123, 456] for
+    the module-level MODE. This restores that documented interface while
+    keeping the previous no-args behaviour (all 3 seeds, MODE='B')
+    unchanged when neither flag is passed.
+    """
+    p = argparse.ArgumentParser(description='WGAN-GP base imputation (Mode B)')
+    p.add_argument('--seed', type=int, default=None,
+                   help='Run only this seed (default: run 42, 123, 456)')
+    p.add_argument('--mode', type=str, default=None, choices=['A', 'B'],
+                   help="Override module-level MODE constant (default: MODE='B')")
+    return p.parse_args()
+
+
 def main():
     """Run the appropriate experiment based on MODE.
 
-    MODE = 'A'  → seed robustness: SEQ_LEN=30, seeds=[42, 123, 456]
+    MODE = 'A'  → seed robustness: SEQ_LEN=30, seeds=[42, 123, 456] (or --seed)
                   saves: gan_model_seed{s}.pt / training_history_seed{s}.csv
                          gan_imputed_test_{scenario}_seed{s}.npy
 
-    MODE = 'B'  → robustness experiment: SEQ_LEN=30, seeds=[42, 123, 456]
+    MODE = 'B'  → robustness experiment: SEQ_LEN=30, seeds=[42, 123, 456] (or --seed)
                   saves: gan_model_modeB_seed{s}.pt
                          training_history_modeB_seed{s}.csv
                          gan_imputed_test_modeB_{scenario}_seed{s}.npy
     """
+    global MODE
+    args = parse_args()
+    if args.mode is not None:
+        MODE = args.mode
+    seeds = [args.seed] if args.seed is not None else [42, 123, 456]
+
     if MODE == 'B':
-        # ── Mode B robustness run — 3 seeds ──────────────────────────────────
+        # ── Mode B run ────────────────────────────────────────────────────────
         seq_len = 30
-        seeds   = [42, 123, 456]
         results = []
         print("=" * 62)
-        print("  MODE B ROBUSTNESS RUN — SEQ_LEN=30  Seeds=[42, 123, 456]")
+        print(f"  MODE B RUN — SEQ_LEN=30  Seeds={seeds}")
         print("  Dual-branch spatio-temporal WGAN-GP")
         print("  Scenarios: 10pct | 20pct | block7d | block30d")
         print("=" * 62)
@@ -803,7 +831,7 @@ def main():
             results.append({'seed': s, 'best_epoch': best_ep, 'best_val_rmse': best_rmse})
 
         print("\n" + "=" * 62)
-        print("  SEED ROBUSTNESS SUMMARY  — Mode B, SEQ_LEN=30")
+        print("  SEED SUMMARY  — Mode B, SEQ_LEN=30")
         print("=" * 62)
         print(f"  {'Seed':>6}  {'Best Epoch':>10}  {'Best Val RMSE':>13}")
         print(f"  {'-'*6}  {'-'*10}  {'-'*13}")
@@ -812,16 +840,15 @@ def main():
         print("=" * 62)
         sys.stdout.flush()
     else:
-        # ── Mode A seed robustness ────────────────────────────────────────────
+        # ── Mode A run ────────────────────────────────────────────────────────
         seq_len = 30
-        seeds   = [42, 123, 456]
         results = []
         for s in seeds:
             best_ep, best_rmse = run_one(seq_len, s)
             results.append({'seed': s, 'best_epoch': best_ep, 'best_val_rmse': best_rmse})
 
         print("\n" + "=" * 62)
-        print("  SEED ROBUSTNESS SUMMARY  — Mode A, SEQ_LEN=30")
+        print("  SEED SUMMARY  — Mode A, SEQ_LEN=30")
         print("=" * 62)
         print(f"  {'Seed':>6}  {'BestEpoch':>10}  {'ValRMSE':>10}")
         print(f"  {'-'*6}  {'-'*10}  {'-'*10}")
