@@ -1,0 +1,5 @@
+{
+  "family": "interaction-gate",
+  "params": "{\"tau_neighbor\": 0.75, \"tau_local\": 0.9}",
+  "mean_utility": 0.6595
+}
