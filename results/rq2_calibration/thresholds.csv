@@ -1,0 +1,10 @@
+seed,variant,threshold,val_select_f1,selected_calibration
+42,raw,0.52,0.7789,False
+42,platt,0.32,0.7794,True
+42,isotonic,0.46,0.7792,False
+123,raw,0.46,0.7774,False
+123,platt,0.38,0.778,True
+123,isotonic,0.42,0.7766,False
+456,raw,0.49,0.7778,False
+456,platt,0.39,0.7786,True
+456,isotonic,0.48,0.7778,False
