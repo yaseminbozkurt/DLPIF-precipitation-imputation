@@ -1,0 +1,5 @@
+scenario,comparison,n,mean_diff,p_value
+10pct,AmountRF_DLPIF vs SAITS,9,-10.467,0.00390625
+10pct,AmountRF_DLPIF vs Linear,9,-7.378,0.00390625
+20pct,AmountRF_DLPIF vs SAITS,10,-9.763,0.001953125
+20pct,AmountRF_DLPIF vs Linear,10,-7.241,0.001953125

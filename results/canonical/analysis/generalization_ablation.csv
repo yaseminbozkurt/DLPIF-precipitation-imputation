@@ -1,0 +1,5 @@
+scenario,model_a_f1,model_b_f1,delta_f1,model_a_rmse_p95,model_b_rmse_p95,delta_rmse_p95,model_a_source
+10pct,0.8082,0.8079,-0.0003,17.62,17.98,0.36,C:\Users\yasemin.bozkurt\Desktop\article\DLPIF-repo-update\results\canonical\predictions\DirectTwoStageRF.csv
+20pct,0.7674,0.7876,0.0202,14.99,14.53,-0.46,C:\Users\yasemin.bozkurt\Desktop\article\DLPIF-repo-update\results\canonical\predictions\DirectTwoStageRF.csv
+block7d,0.7875,0.7986,0.0111,15.45,16.37,0.92,C:\Users\yasemin.bozkurt\Desktop\article\DLPIF-repo-update\results\canonical\predictions\DirectTwoStageRF.csv
+block30d,0.8014,0.7979,-0.0035,20.26,21.12,0.86,C:\Users\yasemin.bozkurt\Desktop\article\DLPIF-repo-update\results\canonical\predictions\DirectTwoStageRF.csv

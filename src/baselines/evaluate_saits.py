@@ -285,6 +285,10 @@ def main(args):
         "20pct":    "art_mask_20pct",
         "block7d":  "art_mask_block7d",
         "block30d": "art_mask_block30d",
+        "mar_meteo":               "art_mask_mar_meteo",
+        "mnar_wet":                "art_mask_mnar_wet",
+        "mnar_intensity_moderate": "art_mask_mnar_intensity_moderate",
+        "mnar_intensity_severe":   "art_mask_mnar_intensity_severe",
     }
     avail_scen = [s for s, k in SCENARIOS.items() if k in te_npz.files]
     print(f"  Scenarios : {avail_scen}")
@@ -396,7 +400,9 @@ def main(args):
     print("=" * 64)
 
     if len(df_extreme):
-        SCENS_ORD = ["10pct", "20pct", "block7d", "block30d"]
+        SCENS_ORD = ["10pct", "20pct", "block7d", "block30d",
+                     "mar_meteo", "mnar_wet",
+                     "mnar_intensity_moderate", "mnar_intensity_severe"]
         ext_show  = df_extreme[df_extreme["method"].isin(METHODS_ORDER)].copy()
 
         if len(ext_show):

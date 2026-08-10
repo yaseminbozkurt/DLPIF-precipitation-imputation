@@ -1,0 +1,10 @@
+freq_gt,freq_pred,bias,precision,recall,F1,CSI,RMSE_wet,frac_dry,method,scenario,epoch
+0.3374,0.3645,0.0271,0.6554,0.708,0.6807,0.516,7.3898,0.6355,SAITS_v2_seed456,10pct,best_val
+0.3649,0.3084,-0.0565,0.7291,0.6162,0.6679,0.5014,6.4811,0.6916,SAITS_v2_seed456,20pct,best_val
+0.3223,0.2868,-0.0355,0.6453,0.5741,0.6076,0.4364,7.3269,0.7132,SAITS_v2_seed456,block7d,best_val
+0.3262,0.2548,-0.0714,0.6682,0.5219,0.5861,0.4145,8.3241,0.7452,SAITS_v2_seed456,block30d,best_val
+0.2548,0.0202,-0.2345,0.6471,0.0514,0.0952,0.05,6.3906,0.9798,SAITS_v2_seed456,netblock30d,best_val
+0.3168,0.3243,0.0074,0.6489,0.6641,0.6564,0.4885,8.0847,0.6757,SAITS_v2_seed456,mar_meteo,best_val
+0.5616,0.4655,-0.0961,0.8413,0.6974,0.7626,0.6163,7.8767,0.5345,SAITS_v2_seed456,mnar_wet,best_val
+0.5569,0.4851,-0.0718,0.8622,0.7511,0.8029,0.6706,11.2932,0.5149,SAITS_v2_seed456,mnar_intensity_moderate,best_val
+0.7946,0.6406,-0.154,0.958,0.7723,0.8552,0.747,13.2969,0.3594,SAITS_v2_seed456,mnar_intensity_severe,best_val

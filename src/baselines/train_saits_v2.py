@@ -1,17 +1,28 @@
 """
 baselines_dl/train_saits_v2.py
 ================================
-SAITS v2 — production training script with both precipitation fixes:
+SAITS v2 — production training script with precipitation fixes:
 
   Fix 1: log1p PRECIP normalization
     log1p(mm) / log1p(165) -> threshold 0.1mm = 0.0186 in norm space (31x vs 0.000606)
 
-  Fix 2: Last-epoch checkpoint for inference
-    model_saving_strategy="all" -> saves SAITS_epoch{N}.pypots each epoch
-    After fit(), explicitly load the last epoch checkpoint before imputation.
-    (pypots always reloads best-val checkpoint in memory after fit(); this overrides it.)
+  Fix 2 (corrected 2026-07-23): genuine validation masking.
+    Previously val_set={"X": X_va, "X_ori": X_va.copy()} made X and X_ori
+    byte-identical, so there was never a position where X was masked but
+    X_ori was observed -- validation MSE was always 0.0 and the "best
+    checkpoint" selection never actually validated anything (confirmed via
+    training logs: "validation MSE: 0.0000" at every epoch, all seeds).
+    Fixed by reusing this project's existing 10% artificial-masking scenario
+    (already precomputed in preprocessed_val.npz, the same scenario every
+    other correction model in this pipeline trains on): val_set X is the
+    artificially-corrupted validation data (corrupted_10pct), val_set X_ori
+    is the true (naturally-missing-only) validation data -- genuine held-out
+    cells with known ground truth now drive validation MSE, and PyPOTS's own
+    best-validation-checkpoint selection is meaningful and used as-is (the
+    previous last-epoch-checkpoint override is removed).
 
-  Fix 3: epochs=80, patience=None (no early stopping)
+  Fix 3: epochs=80, patience=None (no early stopping; best-val checkpoint is
+    still selected from the full epoch-{1..80} history via model_saving_strategy).
 
 Output (isolated, nothing else modified):
   experiments_dl/saits_v2_seed{N}/
@@ -134,25 +145,24 @@ def precip_metrics(pred_mm, gt_mm, mask_1d, pidx, thresh=0.1):
     }
 
 
-# ── Epoch-N checkpoint loader ─────────────────────────────────────────────────
-def load_last_epoch_checkpoint(saits, exp_dir, log):
-    """After fit(), reload the last-epoch checkpoint to override best-val (epoch-1)."""
+# ── Checkpoint reporting ────────────────────────────────────────────────────
+def report_selected_checkpoint(saits, exp_dir, log):
+    """Validation MSE is now genuine (see Fix 2), so PyPOTS's own in-memory
+    best-validation model (reloaded internally at the end of fit()) is used
+    as-is -- no override. This just reports how many per-epoch checkpoints
+    were written, for the log/manuscript record."""
     pattern = os.path.join(exp_dir, "**", "SAITS_epoch*.pypots")
     ckpts   = glob.glob(pattern, recursive=True)
-    if not ckpts:
-        log.warning("  No per-epoch checkpoints found; using current in-memory model.")
-        return None
 
     def epoch_num(p):
         m = re.search(r"epoch(\d+)", os.path.basename(p))
         return int(m.group(1)) if m else 0
 
-    last_ckpt   = max(ckpts, key=epoch_num)
-    last_epoch  = epoch_num(last_ckpt)
-    log.info(f"  Loading last-epoch checkpoint: epoch {last_epoch} -> {os.path.basename(last_ckpt)}")
-    saits.load(last_ckpt)
-    log.info(f"  Checkpoint loaded (overrides epoch-1 best-val model).")
-    return last_epoch
+    n_ckpts = len(ckpts)
+    max_epoch = max((epoch_num(c) for c in ckpts), default=0)
+    log.info(f"  {n_ckpts} per-epoch checkpoints written (up to epoch {max_epoch}); "
+             f"using PyPOTS's own best-validation-MSE model selection.")
+    return "best_val"
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -195,11 +205,20 @@ def main():
     npz_te = np.load(os.path.join(PROJECT_DIR, "preprocessed_test.npz"),  allow_pickle=True)
     ids_tr = npz_tr["station_ids"]; ids_va = npz_va["station_ids"]; ids_te = npz_te["station_ids"]
 
-    # Apply log1p PRECIP transform and build 3-D arrays
-    X_tr  = build_3d(to_log1p(npz_tr["data"].astype(np.float32), pidx, sc), ids_tr)
-    X_va  = build_3d(to_log1p(npz_va["data"].astype(np.float32), pidx, sc), ids_va)
+    # Apply log1p PRECIP transform and build 3-D arrays.
+    # Train: X has only natural MGM missingness; there is no known ground
+    # truth for those naturally-missing cells, so X_ori == X is a legitimate
+    # no-op here (PyPOTS's ORT/MIT self-supervised losses generate their own
+    # internal random mask from X regardless of X_ori).
+    X_tr     = build_3d(to_log1p(npz_tr["data"].astype(np.float32), pidx, sc), ids_tr)
+    # Val: use the pipeline's existing 10% artificial-masking scenario so
+    # validation has genuine held-out cells with KNOWN ground truth --
+    # X_va is the artificially-corrupted version, X_va_ori is the true
+    # (naturally-missing-only) data. This is what makes validation MSE real.
+    X_va     = build_3d(to_log1p(npz_va["corrupted_10pct"].astype(np.float32), pidx, sc), ids_va)
+    X_va_ori = build_3d(to_log1p(npz_va["data"].astype(np.float32), pidx, sc), ids_va)
     thresh_new = np.log1p(0.1) / LOG_MAX
-    log.info(f"train X: {X_tr.shape}  val X: {X_va.shape}")
+    log.info(f"train X: {X_tr.shape}  val X: {X_va.shape}  val X_ori: {X_va_ori.shape}")
     log.info(f"PRECIP threshold: 0.1mm = {thresh_new:.6f} in log1p-norm  (was 0.000606)")
 
     # Save config
@@ -229,6 +248,30 @@ def main():
             epochs=1, patience=None, device=device,
             saving_path=None, model_saving_strategy=None, verbose=False,
         )
+        # BUGFIX (2026-08-03): constructing a fresh SAITS object only sets up
+        # randomly-initialized weights -- .fit() is what reloads the saved
+        # best-validation checkpoint into memory at the end of training (see
+        # report_selected_checkpoint()'s docstring above), and .fit() is
+        # never called on this branch. Without an explicit .load() here,
+        # every "skip training" re-run of this script (e.g. to add a new
+        # inference-only scenario without retraining) was silently imputing
+        # with an untrained, randomly-initialized model instead of the
+        # checkpoint. "model_saving_strategy=all" writes one checkpoint per
+        # epoch, each filename encoding that epoch's validation MSE
+        # (SAITS_epoch{N}_MSE{mse}.pypots); validation MSE is NOT monotonic
+        # across epochs (e.g. seed 42's epoch 75 MSE=0.0048 is lower than
+        # epoch 80's MSE=0.0050), so PyPOTS's own "best_val" selection
+        # (invoked automatically inside .fit()) is the MINIMUM-MSE
+        # checkpoint, not the highest-epoch one -- load that explicitly so a
+        # skipped-training run reproduces the exact model .fit() would have
+        # ended on.
+        def mse_of(p):
+            m = re.search(r"MSE([\d.]+)\.pypots", os.path.basename(p))
+            return float(m.group(1)) if m else float("inf")
+        best_ckpt_path = min(existing_ckpts, key=mse_of)
+        log.info(f"Loading best-validation-MSE checkpoint explicitly: "
+                 f"{best_ckpt_path} (MSE={mse_of(best_ckpt_path)})")
+        saits.load(best_ckpt_path)
     else:
         log.info("Training ...")
         saits = SAITS(
@@ -241,15 +284,23 @@ def main():
         t0 = time.time()
         saits.fit(
             train_set={"X": X_tr, "X_ori": X_tr.copy()},
-            val_set={"X": X_va, "X_ori": X_va.copy()},
+            val_set={"X": X_va, "X_ori": X_va_ori},
         )
         log.info(f"Training done: {(time.time()-t0)/60:.1f} min")
 
-    # ── Load last-epoch checkpoint (overrides epoch-1 best-val) ───────────
-    last_epoch = load_last_epoch_checkpoint(saits, exp_dir, log)
+    # ── Best-validation checkpoint (now genuinely validated -- see Fix 2) ──
+    last_epoch = report_selected_checkpoint(saits, exp_dir, log)
 
     # ── Ground truth in mm ────────────────────────────────────────────────
-    N = 11160
+    # N = number of rows actually covered by non-overlapping N_STEPS windows
+    # per station (rows_per_station // N_STEPS * N_STEPS, summed over
+    # stations) -- computed from the current test set, not hardcoded, since
+    # this truncates differently at different dataset sizes.
+    n_stations_te = len(dict.fromkeys(ids_te.tolist()))
+    rows_per_station_te = len(ids_te) // n_stations_te
+    N = (rows_per_station_te // N_STEPS) * N_STEPS * n_stations_te
+    log.info(f"Test set: {len(ids_te)} rows, {n_stations_te} stations, "
+             f"windowed N={N} (dropped tail rows: {len(ids_te) - N})")
     gt_norm = npz_te["data"].astype(np.float32)[:N]
     gt_mm   = np.empty_like(gt_norm)
     for i in range(N_FEATURES):
@@ -257,10 +308,15 @@ def main():
 
     # ── Impute all scenarios ───────────────────────────────────────────────
     SCENARIOS = {
-        "10pct":    ("corrupted_10pct",    "art_mask_10pct"),
-        "20pct":    ("corrupted_20pct",    "art_mask_20pct"),
-        "block7d":  ("corrupted_block7d",  "art_mask_block7d"),
-        "block30d": ("corrupted_block30d", "art_mask_block30d"),
+        "10pct":       ("corrupted_10pct",       "art_mask_10pct"),
+        "20pct":       ("corrupted_20pct",       "art_mask_20pct"),
+        "block7d":     ("corrupted_block7d",     "art_mask_block7d"),
+        "block30d":    ("corrupted_block30d",    "art_mask_block30d"),
+        "netblock30d": ("corrupted_netblock30d", "art_mask_netblock30d"),
+        "mar_meteo":               ("corrupted_mar_meteo",               "art_mask_mar_meteo"),
+        "mnar_wet":                ("corrupted_mnar_wet",                "art_mask_mnar_wet"),
+        "mnar_intensity_moderate": ("corrupted_mnar_intensity_moderate", "art_mask_mnar_intensity_moderate"),
+        "mnar_intensity_severe":   ("corrupted_mnar_intensity_severe",   "art_mask_mnar_intensity_severe"),
     }
 
     all_rows = []

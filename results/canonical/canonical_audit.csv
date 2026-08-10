@@ -1,0 +1,1254 @@
+audit_category,check_name,method,scenario,seed,status,observed,expected,tolerance,source_file,message
+completeness,expected_groups_exist,Mean,,,PASS,5,5,,,all groups present
+completeness,no_unexpected_groups,Mean,,,PASS,5,5,,,no unexpected groups
+completeness,no_duplicate_rows,Mean,10pct,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Mean,10pct,deterministic,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Mean,10pct,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Mean,10pct,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,Mean,20pct,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Mean,20pct,deterministic,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Mean,20pct,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Mean,20pct,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,Mean,block7d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Mean,block7d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Mean,block7d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Mean,block7d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,Mean,block30d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Mean,block30d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Mean,block30d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Mean,block30d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,Mean,netblock30d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Mean,netblock30d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Mean,netblock30d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Mean,netblock30d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,Linear,,,PASS,5,5,,,all groups present
+completeness,no_unexpected_groups,Linear,,,PASS,5,5,,,no unexpected groups
+completeness,no_duplicate_rows,Linear,10pct,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Linear,10pct,deterministic,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Linear,10pct,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Linear,10pct,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,Linear,20pct,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Linear,20pct,deterministic,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Linear,20pct,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Linear,20pct,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,Linear,block7d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Linear,block7d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Linear,block7d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Linear,block7d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,Linear,block30d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Linear,block30d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Linear,block30d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Linear,block30d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,Linear,netblock30d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,Linear,netblock30d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,Linear,netblock30d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,Linear,netblock30d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,KNN,,,PASS,5,5,,,all groups present
+completeness,no_unexpected_groups,KNN,,,PASS,5,5,,,no unexpected groups
+completeness,no_duplicate_rows,KNN,10pct,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,KNN,10pct,deterministic,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,KNN,10pct,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,KNN,10pct,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,KNN,20pct,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,KNN,20pct,deterministic,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,KNN,20pct,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,KNN,20pct,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,KNN,block7d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,KNN,block7d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,KNN,block7d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,KNN,block7d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,KNN,block30d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,KNN,block30d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,KNN,block30d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,KNN,block30d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,KNN,netblock30d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,KNN,netblock30d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,KNN,netblock30d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,KNN,netblock30d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,MICE,,,PASS,5,5,,,all groups present
+completeness,no_unexpected_groups,MICE,,,PASS,5,5,,,no unexpected groups
+completeness,no_duplicate_rows,MICE,10pct,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MICE,10pct,deterministic,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MICE,10pct,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MICE,10pct,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MICE,20pct,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MICE,20pct,deterministic,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MICE,20pct,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MICE,20pct,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MICE,block7d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MICE,block7d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MICE,block7d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MICE,block7d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MICE,block30d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MICE,block30d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MICE,block30d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MICE,block30d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MICE,netblock30d,deterministic,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MICE,netblock30d,deterministic,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MICE,netblock30d,deterministic,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MICE,netblock30d,deterministic,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,AmountRF_DLPIF,,,PASS,12,12,,,all groups present
+completeness,no_unexpected_groups,AmountRF_DLPIF,,,PASS,12,12,,,no unexpected groups
+completeness,no_duplicate_rows,AmountRF_DLPIF,10pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,10pct,42,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,10pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,10pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,10pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,10pct,123,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,10pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,10pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,10pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,10pct,456,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,10pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,10pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,20pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,20pct,42,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,20pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,20pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,20pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,20pct,123,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,20pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,20pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,20pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,20pct,456,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,20pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,20pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,block7d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,block7d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,block7d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,block7d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,block7d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,block7d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,block7d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,block7d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,block7d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,block7d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,block7d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,block7d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,block30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,block30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,block30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,block30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,block30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,block30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,block30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,block30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,AmountRF_DLPIF,block30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,AmountRF_DLPIF,block30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,AmountRF_DLPIF,block30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,AmountRF_DLPIF,block30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,DirectTwoStageRF,,,PASS,15,15,,,all groups present
+completeness,no_unexpected_groups,DirectTwoStageRF,,,PASS,15,15,,,no unexpected groups
+completeness,no_duplicate_rows,DirectTwoStageRF,10pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,10pct,42,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,10pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,10pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,10pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,10pct,123,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,10pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,10pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,10pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,10pct,456,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,10pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,10pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,20pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,20pct,42,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,20pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,20pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,20pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,20pct,123,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,20pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,20pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,20pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,20pct,456,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,20pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,20pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,block7d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,block7d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,block7d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,block7d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,block7d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,block7d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,block7d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,block7d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,block7d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,block7d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,block7d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,block7d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,block30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,block30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,block30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,block30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,block30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,block30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,block30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,block30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,block30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,block30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,block30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,block30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,netblock30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,netblock30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,netblock30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,netblock30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,netblock30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,netblock30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,netblock30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,netblock30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,DirectTwoStageRF,netblock30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,DirectTwoStageRF,netblock30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,DirectTwoStageRF,netblock30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,DirectTwoStageRF,netblock30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,SingleStageRF,,,PASS,15,15,,,all groups present
+completeness,no_unexpected_groups,SingleStageRF,,,PASS,15,15,,,no unexpected groups
+completeness,no_duplicate_rows,SingleStageRF,10pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,10pct,42,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,10pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,10pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,10pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,10pct,123,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,10pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,10pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,10pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,10pct,456,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,10pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,10pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,20pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,20pct,42,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,20pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,20pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,20pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,20pct,123,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,20pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,20pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,20pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,20pct,456,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,20pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,20pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,block7d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,block7d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,block7d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,block7d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,block7d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,block7d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,block7d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,block7d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,block7d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,block7d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,block7d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,block7d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,block30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,block30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,block30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,block30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,block30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,block30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,block30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,block30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,block30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,block30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,block30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,block30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,netblock30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,netblock30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,netblock30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,netblock30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,netblock30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,netblock30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,netblock30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,netblock30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SingleStageRF,netblock30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SingleStageRF,netblock30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SingleStageRF,netblock30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SingleStageRF,netblock30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,MissingnessIndicatorRF,,,PASS,15,15,,,all groups present
+completeness,no_unexpected_groups,MissingnessIndicatorRF,,,PASS,15,15,,,no unexpected groups
+completeness,no_duplicate_rows,MissingnessIndicatorRF,10pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,10pct,42,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,10pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,10pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,10pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,10pct,123,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,10pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,10pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,10pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,10pct,456,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,10pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,10pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,20pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,20pct,42,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,20pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,20pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,20pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,20pct,123,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,20pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,20pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,20pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,20pct,456,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,20pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,20pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,block7d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,block7d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,block7d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,block7d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,block7d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,block7d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,block7d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,block7d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,block7d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,block7d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,block7d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,block7d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,block30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,block30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,block30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,block30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,block30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,block30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,block30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,block30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,block30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,block30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,block30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,block30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,netblock30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,netblock30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,netblock30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,netblock30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,netblock30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,netblock30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,netblock30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,netblock30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,MissingnessIndicatorRF,netblock30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,MissingnessIndicatorRF,netblock30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,MissingnessIndicatorRF,netblock30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,MissingnessIndicatorRF,netblock30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,SAITS,,,PASS,15,15,,,all groups present
+completeness,no_unexpected_groups,SAITS,,,PASS,15,15,,,no unexpected groups
+completeness,no_duplicate_rows,SAITS,10pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,10pct,42,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,10pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,10pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,10pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,10pct,123,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,10pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,10pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,10pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,10pct,456,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,10pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,10pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,20pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,20pct,42,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,20pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,20pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,20pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,20pct,123,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,20pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,20pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,20pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,20pct,456,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,20pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,20pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,block7d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,block7d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,block7d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,block7d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,block7d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,block7d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,block7d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,block7d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,block7d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,block7d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,block7d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,block7d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,block30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,block30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,block30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,block30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,block30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,block30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,block30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,block30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,block30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,block30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,block30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,block30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,netblock30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,netblock30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,netblock30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,netblock30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,netblock30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,netblock30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,netblock30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,netblock30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,SAITS,netblock30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,SAITS,netblock30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,SAITS,netblock30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,SAITS,netblock30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,WGANGP_raw,,,PASS,12,12,,,all groups present
+completeness,no_unexpected_groups,WGANGP_raw,,,PASS,12,12,,,no unexpected groups
+completeness,no_duplicate_rows,WGANGP_raw,10pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,10pct,42,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,10pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,10pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,10pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,10pct,123,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,10pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,10pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,10pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,10pct,456,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,10pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,10pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,20pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,20pct,42,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,20pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,20pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,20pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,20pct,123,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,20pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,20pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,20pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,20pct,456,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,20pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,20pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,block7d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,block7d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,block7d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,block7d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,block7d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,block7d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,block7d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,block7d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,block7d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,block7d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,block7d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,block7d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,block30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,block30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,block30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,block30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,block30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,block30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,block30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,block30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_raw,block30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_raw,block30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_raw,block30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_raw,block30d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,expected_groups_exist,WGANGP_PrecipFix,,,PASS,12,12,,,all groups present
+completeness,no_unexpected_groups,WGANGP_PrecipFix,,,PASS,12,12,,,no unexpected groups
+completeness,no_duplicate_rows,WGANGP_PrecipFix,10pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,10pct,42,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,10pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,10pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,10pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,10pct,123,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,10pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,10pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,10pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,10pct,456,PASS,416,416,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,10pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,10pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,20pct,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,20pct,42,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,20pct,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,20pct,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,20pct,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,20pct,123,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,20pct,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,20pct,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,20pct,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,20pct,456,PASS,833,833,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,20pct,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,20pct,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,block7d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,block7d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,block7d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,block7d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,block7d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,block7d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,block7d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,block7d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,block7d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,block7d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,block7d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,block7d,456,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,block30d,42,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,block30d,42,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,block30d,42,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,block30d,42,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,block30d,123,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,block30d,123,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,block30d,123,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,block30d,123,PASS,True,True,,,every row_index is a true art_mask position
+completeness,no_duplicate_rows,WGANGP_PrecipFix,block30d,456,PASS,0,0,,,no duplicate row_index within group
+integrity,prediction_mask_length_match,WGANGP_PrecipFix,block30d,456,PASS,840,840,,,row count matches fresh art_mask.sum()
+integrity,no_nan_inf_evaluated,WGANGP_PrecipFix,block30d,456,PASS,0,0,,,all evaluated cells finite
+integrity,row_index_matches_fresh_mask,WGANGP_PrecipFix,block30d,456,PASS,True,True,,,every row_index is a true art_mask position
+traceability,metrics_row_traceability,AmountRF_DLPIF,10pct,123,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,10pct,123,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,10pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,10pct,42,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,10pct,42,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,10pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,10pct,456,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,10pct,456,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,10pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,20pct,123,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,20pct,123,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,20pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,20pct,42,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,20pct,42,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,20pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,20pct,456,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,20pct,456,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,20pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,block30d,123,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,block30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,block30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,block30d,42,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,block30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,block30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,block30d,456,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,block30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,block30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,block7d,123,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,block7d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,block7d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,block7d,42,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,block7d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,block7d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,AmountRF_DLPIF,block7d,456,PASS,,,,results/canonical/predictions/AmountRF_DLPIF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,AmountRF_DLPIF,block7d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,AmountRF_DLPIF,block7d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/AmountRF_DLPIF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,10pct,123,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,10pct,123,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,10pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,10pct,42,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,10pct,42,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,10pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,10pct,456,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,10pct,456,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,10pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,20pct,123,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,20pct,123,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,20pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,20pct,42,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,20pct,42,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,20pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,20pct,456,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,20pct,456,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,20pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,block30d,123,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,block30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,block30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,block30d,42,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,block30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,block30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,block30d,456,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,block30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,block30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,block7d,123,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,block7d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,block7d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,block7d,42,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,block7d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,block7d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,block7d,456,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,block7d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,block7d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,netblock30d,123,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,netblock30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,netblock30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,netblock30d,42,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,netblock30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,netblock30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,DirectTwoStageRF,netblock30d,456,PASS,,,,results/canonical/predictions/DirectTwoStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,DirectTwoStageRF,netblock30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,DirectTwoStageRF,netblock30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/DirectTwoStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,KNN,10pct,deterministic,PASS,,,,results/canonical/predictions/KNN.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,KNN,10pct,deterministic,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,KNN,10pct,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/KNN.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,KNN,20pct,deterministic,PASS,,,,results/canonical/predictions/KNN.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,KNN,20pct,deterministic,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,KNN,20pct,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/KNN.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,KNN,block30d,deterministic,PASS,,,,results/canonical/predictions/KNN.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,KNN,block30d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,KNN,block30d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/KNN.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,KNN,block7d,deterministic,PASS,,,,results/canonical/predictions/KNN.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,KNN,block7d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,KNN,block7d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/KNN.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,KNN,netblock30d,deterministic,PASS,,,,results/canonical/predictions/KNN.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,KNN,netblock30d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,KNN,netblock30d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/KNN.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Linear,10pct,deterministic,PASS,,,,results/canonical/predictions/Linear.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Linear,10pct,deterministic,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Linear,10pct,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Linear.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Linear,20pct,deterministic,PASS,,,,results/canonical/predictions/Linear.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Linear,20pct,deterministic,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Linear,20pct,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Linear.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Linear,block30d,deterministic,PASS,,,,results/canonical/predictions/Linear.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Linear,block30d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Linear,block30d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Linear.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Linear,block7d,deterministic,PASS,,,,results/canonical/predictions/Linear.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Linear,block7d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Linear,block7d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Linear.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Linear,netblock30d,deterministic,PASS,,,,results/canonical/predictions/Linear.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Linear,netblock30d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Linear,netblock30d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Linear.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MICE,10pct,deterministic,PASS,,,,results/canonical/predictions/MICE.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MICE,10pct,deterministic,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MICE,10pct,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/MICE.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MICE,20pct,deterministic,PASS,,,,results/canonical/predictions/MICE.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MICE,20pct,deterministic,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MICE,20pct,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/MICE.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MICE,block30d,deterministic,PASS,,,,results/canonical/predictions/MICE.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MICE,block30d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MICE,block30d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/MICE.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MICE,block7d,deterministic,PASS,,,,results/canonical/predictions/MICE.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MICE,block7d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MICE,block7d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/MICE.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MICE,netblock30d,deterministic,PASS,,,,results/canonical/predictions/MICE.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MICE,netblock30d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MICE,netblock30d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/MICE.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Mean,10pct,deterministic,PASS,,,,results/canonical/predictions/Mean.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Mean,10pct,deterministic,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Mean,10pct,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Mean.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Mean,20pct,deterministic,PASS,,,,results/canonical/predictions/Mean.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Mean,20pct,deterministic,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Mean,20pct,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Mean.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Mean,block30d,deterministic,PASS,,,,results/canonical/predictions/Mean.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Mean,block30d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Mean,block30d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Mean.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Mean,block7d,deterministic,PASS,,,,results/canonical/predictions/Mean.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Mean,block7d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Mean,block7d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Mean.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,Mean,netblock30d,deterministic,PASS,,,,results/canonical/predictions/Mean.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,Mean,netblock30d,deterministic,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,Mean,netblock30d,deterministic,PASS,0.0,0.0,1e-09,results/canonical/predictions/Mean.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,10pct,123,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,10pct,123,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,10pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,10pct,42,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,10pct,42,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,10pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,10pct,456,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,10pct,456,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,10pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,20pct,123,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,20pct,123,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,20pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,20pct,42,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,20pct,42,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,20pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,20pct,456,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,20pct,456,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,20pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,block30d,123,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,block30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,block30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,block30d,42,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,block30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,block30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,block30d,456,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,block30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,block30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,block7d,123,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,block7d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,block7d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,block7d,42,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,block7d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,block7d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,block7d,456,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,block7d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,block7d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,netblock30d,123,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,netblock30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,netblock30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,netblock30d,42,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,netblock30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,netblock30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,MissingnessIndicatorRF,netblock30d,456,PASS,,,,results/canonical/predictions/MissingnessIndicatorRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,MissingnessIndicatorRF,netblock30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,MissingnessIndicatorRF,netblock30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/MissingnessIndicatorRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,10pct,123,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,10pct,123,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,10pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,10pct,42,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,10pct,42,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,10pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,10pct,456,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,10pct,456,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,10pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,20pct,123,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,20pct,123,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,20pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,20pct,42,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,20pct,42,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,20pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,20pct,456,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,20pct,456,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,20pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,block30d,123,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,block30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,block30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,block30d,42,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,block30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,block30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,block30d,456,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,block30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,block30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,block7d,123,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,block7d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,block7d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,block7d,42,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,block7d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,block7d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,block7d,456,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,block7d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,block7d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,netblock30d,123,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,netblock30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,netblock30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,netblock30d,42,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,netblock30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,netblock30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SAITS,netblock30d,456,PASS,,,,results/canonical/predictions/SAITS.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SAITS,netblock30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SAITS,netblock30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SAITS.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,10pct,123,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,10pct,123,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,10pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,10pct,42,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,10pct,42,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,10pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,10pct,456,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,10pct,456,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,10pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,20pct,123,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,20pct,123,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,20pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,20pct,42,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,20pct,42,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,20pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,20pct,456,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,20pct,456,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,20pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,block30d,123,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,block30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,block30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,block30d,42,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,block30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,block30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,block30d,456,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,block30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,block30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,block7d,123,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,block7d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,block7d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,block7d,42,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,block7d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,block7d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,block7d,456,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,block7d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,block7d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,netblock30d,123,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,netblock30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,netblock30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,netblock30d,42,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,netblock30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,netblock30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,SingleStageRF,netblock30d,456,PASS,,,,results/canonical/predictions/SingleStageRF.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,SingleStageRF,netblock30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,SingleStageRF,netblock30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/SingleStageRF.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,10pct,123,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,10pct,123,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,10pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,10pct,42,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,10pct,42,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,10pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,10pct,456,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,10pct,456,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,10pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,20pct,123,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,20pct,123,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,20pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,20pct,42,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,20pct,42,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,20pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,20pct,456,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,20pct,456,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,20pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,block30d,123,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,block30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,block30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,block30d,42,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,block30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,block30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,block30d,456,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,block30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,block30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,block7d,123,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,block7d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,block7d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,block7d,42,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,block7d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,block7d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_PrecipFix,block7d,456,PASS,,,,results/canonical/predictions/WGANGP_PrecipFix.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_PrecipFix,block7d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_PrecipFix,block7d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_PrecipFix.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,10pct,123,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,10pct,123,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,10pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,10pct,42,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,10pct,42,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,10pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,10pct,456,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,10pct,456,PASS,416,416,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,10pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,20pct,123,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,20pct,123,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,20pct,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,20pct,42,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,20pct,42,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,20pct,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,20pct,456,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,20pct,456,PASS,833,833,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,20pct,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,block30d,123,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,block30d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,block30d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,block30d,42,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,block30d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,block30d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,block30d,456,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,block30d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,block30d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,block7d,123,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,block7d,123,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,block7d,123,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,block7d,42,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,block7d,42,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,block7d,42,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+traceability,metrics_row_traceability,WGANGP_raw,block7d,456,PASS,,,,results/canonical/predictions/WGANGP_raw.csv,source_prediction_file exists and matches method
+integrity,n_evaluated_matches_mask_count,WGANGP_raw,block7d,456,PASS,840,840,,,n_evaluated matches freshly recomputed art_mask count
+consistency,metrics_recompute_match,WGANGP_raw,block7d,456,PASS,0.0,0.0,1e-09,results/canonical/predictions/WGANGP_raw.csv,recomputed metrics match saved metrics (worst field: None)
+provenance,no_legacy_file_read,Mean,,,PASS,5,5,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,Linear,,,PASS,5,5,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,KNN,,,PASS,5,5,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,MICE,,,PASS,5,5,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,AmountRF_DLPIF,,,PASS,12,12,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,DirectTwoStageRF,,,PASS,15,15,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,SingleStageRF,,,PASS,15,15,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,MissingnessIndicatorRF,,,PASS,15,15,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,SAITS,,,PASS,15,15,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,WGANGP_raw,,,PASS,12,12,,,all source_file values match the allowed whitelist
+provenance,no_legacy_file_read,WGANGP_PrecipFix,,,PASS,12,12,,,all source_file values match the allowed whitelist
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,10pct,42,PASS,0.0,0.0,1e-09,,"416 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,10pct,123,PASS,0.0,0.0,1e-09,,"416 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,10pct,456,PASS,0.0,0.0,1e-09,,"416 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,20pct,42,PASS,0.0,0.0,1e-09,,"833 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,20pct,123,PASS,0.0,0.0,1e-09,,"833 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,20pct,456,PASS,0.0,0.0,1e-09,,"833 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,block7d,42,PASS,0.0,0.0,1e-09,,"840 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,block7d,123,PASS,0.0,0.0,1e-09,,"840 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,block7d,456,PASS,0.0,0.0,1e-09,,"840 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,block30d,42,PASS,0.0,0.0,1e-09,,"840 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,block30d,123,PASS,0.0,0.0,1e-09,,"840 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+equivalence,dlpif_vs_direct_equivalence,AmountRF_DLPIF_vs_DirectTwoStageRF,block30d,456,PASS,0.0,0.0,1e-09,,"840 row_index-matched positions; max|y_pred diff|=0.0, max|y_true diff|=0.0 (backbone-discarded equivalence, manuscript Section 3.4 / 5.8)"
+completeness,table4_groups_exist,Mean,,,PASS,5,5,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,Linear,,,PASS,5,5,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,KNN,,,PASS,5,5,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,MICE,,,PASS,5,5,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,AmountRF_DLPIF,,,PASS,12,12,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,DirectTwoStageRF,,,PASS,15,15,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,SingleStageRF,,,PASS,15,15,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,MissingnessIndicatorRF,,,PASS,15,15,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,SAITS,,,PASS,15,15,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,WGANGP_raw,,,PASS,12,12,,results/canonical/analysis/false_wet_rate.csv,all groups present
+completeness,table4_groups_exist,WGANGP_PrecipFix,,,PASS,12,12,,results/canonical/analysis/false_wet_rate.csv,all groups present
+consistency,table4_recompute_match,Mean,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Linear,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,KNN,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MICE,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Mean,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Linear,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,KNN,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MICE,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Mean,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Linear,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,KNN,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MICE,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Mean,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Linear,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,KNN,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MICE,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,AmountRF_DLPIF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_raw,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,WGANGP_PrecipFix,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Mean,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,Linear,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,KNN,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MICE,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SAITS,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,DirectTwoStageRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,SingleStageRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+consistency,table4_recompute_match,MissingnessIndicatorRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/false_wet_rate.csv,recomputed matches stored
+completeness,table7_groups_exist,Mean,,,PASS,5,5,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,Linear,,,PASS,5,5,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,KNN,,,PASS,5,5,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,MICE,,,PASS,5,5,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,AmountRF_DLPIF,,,PASS,12,12,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,DirectTwoStageRF,,,PASS,15,15,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,SingleStageRF,,,PASS,15,15,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,MissingnessIndicatorRF,,,PASS,15,15,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,SAITS,,,PASS,15,15,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,WGANGP_raw,,,PASS,12,12,,results/canonical/analysis/dry_spells.csv,all groups present
+completeness,table7_groups_exist,WGANGP_PrecipFix,,,PASS,12,12,,results/canonical/analysis/dry_spells.csv,all groups present
+consistency,table7_recompute_match,Mean,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Mean,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Mean,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Mean,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Mean,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Linear,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Linear,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Linear,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Linear,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,Linear,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,KNN,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,KNN,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,KNN,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,KNN,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,KNN,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MICE,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MICE,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MICE,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MICE,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MICE,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,AmountRF_DLPIF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,DirectTwoStageRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SingleStageRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,MissingnessIndicatorRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,SAITS,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_raw,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+consistency,table7_recompute_match,WGANGP_PrecipFix,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/dry_spells.csv,4 stations recomputed via build_filled_series -- matches stored
+completeness,table8_groups_exist,Mean,,,PASS,5,5,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,Linear,,,PASS,5,5,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,KNN,,,PASS,5,5,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,MICE,,,PASS,5,5,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,AmountRF_DLPIF,,,PASS,12,12,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,DirectTwoStageRF,,,PASS,15,15,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,SingleStageRF,,,PASS,15,15,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,MissingnessIndicatorRF,,,PASS,15,15,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,SAITS,,,PASS,15,15,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,WGANGP_raw,,,PASS,12,12,,results/canonical/analysis/spatial_correlation.csv,all groups present
+completeness,table8_groups_exist,WGANGP_PrecipFix,,,PASS,12,12,,results/canonical/analysis/spatial_correlation.csv,all groups present
+consistency,table8_recompute_match,Mean,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Mean,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Mean,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Mean,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Mean,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Linear,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Linear,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Linear,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Linear,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,Linear,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,KNN,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,KNN,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,KNN,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,KNN,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,KNN,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MICE,10pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MICE,20pct,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MICE,block7d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MICE,block30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MICE,netblock30d,deterministic,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,AmountRF_DLPIF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,DirectTwoStageRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SingleStageRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,MissingnessIndicatorRF,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,netblock30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,netblock30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,SAITS,netblock30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_raw,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,10pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,20pct,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,block7d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,block30d,42,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,10pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,20pct,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,block7d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,block30d,123,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,10pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,20pct,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,block7d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+consistency,table8_recompute_match,WGANGP_PrecipFix,block30d,456,PASS,0.0,0.0,1e-06,results/canonical/analysis/spatial_correlation.csv,recomputed matches stored
+provenance,stage0_no_legacy_file_read,canonical_false_wet_analysis.py,,,PASS,,,,src/canonical_false_wet_analysis.py,no legacy filename referenced in source
+provenance,stage0_no_legacy_file_read,canonical_dry_spell.py,,,PASS,,,,src/canonical_dry_spell.py,no legacy filename referenced in source
+provenance,stage0_no_legacy_file_read,canonical_spatial_correlation.py,,,PASS,,,,src/canonical_spatial_correlation.py,no legacy filename referenced in source
+completeness,table6_groups_exist,GeneralizationAblation,,,PASS,4,4,,results/canonical/analysis/generalization_ablation.csv,all 4 scenarios present
+consistency,table6_model_a_recompute_match,GeneralizationAblation,,,PASS,0.0,0.0,1e-06,results/canonical/predictions/DirectTwoStageRF.csv,Model A F1/RMSE_p95 recomputed from DirectTwoStageRF.csv matches stored
+completeness,table6_model_b_values_in_range,GeneralizationAblation,,,PASS,True,True,,results/canonical/analysis/generalization_ablation.csv,"Model B F1 in [0,1], RMSE_p95 > 0 for all scenarios (Model B is a live 20pct-trained rerun; reproducible via canonical_generalization_ablation.py, not independently re-derived here)"
+completeness,loso_groups_exist,LOSO,,,PASS,16,16,,results/canonical/analysis/loso.csv,all 4 stations x 4 scenarios present
+completeness,loso_values_in_range,LOSO,,,PASS,True,True,,results/canonical/analysis/loso.csv,"F1 in [0,1], n_masked > 0 for all folds (live per-fold reruns; reproducible via canonical_loso.py, not independently re-derived here)"
+provenance,table6_loso_no_legacy_file_read,canonical_generalization_ablation.py,,,PASS,,,,src/canonical_generalization_ablation.py,no legacy filename referenced in source
+provenance,table6_loso_no_legacy_file_read,canonical_loso.py,,,PASS,,,,src/canonical_loso.py,no legacy filename referenced in source
+completeness,multimask_groups_exist,MultiMaskVariance,,,PASS,140,140,,results/canonical/analysis/multimask_variance.csv,Linear (deterministic) + AmountRF_DLPIF/SAITS (3 seeds each) x 2 scenarios x 10 realizations present
+completeness,multimask_values_in_range,MultiMaskVariance,,,PASS,True,True,,results/canonical/analysis/multimask_variance.csv,"F1 in [0,1], n_masked > 0 for all realizations"
+completeness,multimask_seeds_unique,MultiMaskVariance,10pct,,PASS,10,10,,results/canonical/analysis/multimask_variance.csv,10 distinct mask seeds
+completeness,multimask_seeds_unique,MultiMaskVariance,20pct,,PASS,10,10,,results/canonical/analysis/multimask_variance.csv,10 distinct mask seeds
+provenance,multimask_no_legacy_file_read,canonical_multimask_variance.py,,,PASS,,,,src/canonical_multimask_variance.py,no legacy filename referenced in source
