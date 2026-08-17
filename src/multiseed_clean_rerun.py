@@ -18,7 +18,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score
 
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 WET_THRESH  = 0.1
-P95_THRESH  = 16.74
+P95_THRESH  = 19.2  # train+val p95, post-2005 dataset -- see canonical_metrics.py / compute_p95_threshold.py
 SEEDS       = [
     int(s.strip())
     for s in os.environ.get('DLPIF_SEEDS', '42,123,456').split(',')
@@ -79,12 +79,6 @@ def build_amt_X(sc, z, cor_key, pidx, neighbor_avg_key, neighbor_mask_key):
                            z['temporal'].astype(np.float32),
                            inv(sc, z[neighbor_avg_key].astype(np.float32)).astype(np.float32),
                            z[neighbor_mask_key].astype(np.float32)], axis=1)
-
-def apply_qmap(wet_pred_mm, qmap):
-    if qmap is None or len(wet_pred_mm) == 0: return wet_pred_mm
-    pq = np.argsort(np.argsort(wet_pred_mm)).astype(np.float64)
-    pq /= max(len(wet_pred_mm) - 1, 1)
-    return np.interp(pq, np.linspace(0, 1, len(qmap)), qmap).astype(np.float32)
 
 def metrics(gt_mm, pred_mm, method, scenario, n_masked):
     pw = pred_mm > WET_THRESH; gw = gt_mm > WET_THRESH
@@ -170,9 +164,6 @@ def main():
     X_tr_occ = X_tr_full[tr_obs]; y_tr = (tr_gt[tr_obs]>WET_THRESH).astype(int)
     X_va_occ = X_va_full[va_obs]; y_va = (va_gt[va_obs]>WET_THRESH).astype(int)
 
-    va_wet_mm = va_gt[va_gt > WET_THRESH]
-    qmap = np.quantile(va_wet_mm, np.linspace(0,1,201)).astype(np.float32) if len(va_wet_mm)>=10 else None
-
     scen_features = {}
     for scen_label, cor_key, mask_key in SCENARIOS:
         na_key, nm_key = neighbor_keys(scen_label)
@@ -189,21 +180,6 @@ def main():
     seed_meta   = []
 
     print(f'\n  Feature dim={X_tr_occ.shape[1]}  Train obs={len(X_tr_occ):,}  Val obs={len(X_va_occ):,}')
-
-    missing_raw = [
-        os.path.join(OUTPUT_DIR, f'gan_imputed_test_modeB_{scen_label}_seed{seed}.npy')
-        for seed in SEEDS
-        for scen_label, _, _ in SCENARIOS
-        if not os.path.exists(
-            os.path.join(OUTPUT_DIR, f'gan_imputed_test_modeB_{scen_label}_seed{seed}.npy')
-        )
-    ]
-    if missing_raw:
-        missing_names = ', '.join(os.path.basename(p) for p in missing_raw)
-        raise FileNotFoundError(
-            'Missing scenario-specific raw GAN outputs required for a complete multiseed rerun: '
-            f'{missing_names}. Run 02_wgan_gp_imputation.py for every seed first.'
-        )
 
     for seed in SEEDS:
         print(f'\n{"="*60}')
@@ -247,11 +223,11 @@ def main():
         # causing cross-scenario contamination (recomputed F1 ~0.98 vs ref ~0.76).
         # Now each scenario gets an independent copy: no cross-contamination.
         for scen_label, cor_key, mask_key in SCENARIOS:
-            # Raw WGAN base imputation generated with this scenario's
-            # corrupted input and artificial mask.
-            p2_path = os.path.join(OUTPUT_DIR, f'gan_imputed_test_modeB_{scen_label}_seed{seed}.npy')
-            p2_norm = np.load(p2_path).astype(np.float32)
-            p2_mm   = np.clip(p2_norm[:,pidx],0,1)*sc.data_range_[pidx]+sc.data_min_[pidx]
+            # Backbone-free: envelope for the saved (N,7) array is the
+            # scenario's own zero-filled corrupted input (no WGAN-GP
+            # dependency), matching direct_two_stage_rf.py's convention.
+            # Only the PRECIP column (pidx) is ever evaluated for this method.
+            env_norm = np.nan_to_num(te[cor_key].astype(np.float32), nan=0.0)
 
             sf = scen_features[scen_label]
             m = te[mask_key].astype(np.float32)[:,pidx] > 0.5
@@ -260,41 +236,25 @@ def main():
             te_proba = occ_rf.predict_proba(sf['X_occ'])[:,1]
             te_wet_pred = (te_proba >= occ_cut).astype(bool)
 
-            # -- Precip2Stage: scenario-specific occurrence correction --
-            p2s_scen = p2_mm.copy()
-            p2s_scen[~te_wet_pred] = 0.0
-            if qmap is not None and te_wet_pred.sum() > 0:
-                raw_wet = np.clip(p2s_scen[te_wet_pred], 0, None)
-                p2s_scen[te_wet_pred] = apply_qmap(raw_wet, qmap)
-            p2s_scen = np.clip(p2s_scen, 0, None)
-
-            p2s_full_scen = p2_norm.copy()
-            p2s_full_scen[:,pidx] = to_norm(sc, p2s_scen, pidx)
-            np.save(os.path.join(OUTPUT_DIR,
-                f'gan_imputed_test_modeB_seed{seed}_msclean_precip2stage_{scen_label}.npy'),
-                p2s_full_scen.astype(np.float32))
-
-            # -- AmountRF: FRESH start for every scenario (no cross-contamination) --
-            amt_scen = p2s_scen.copy()
+            # -- AmountRF/DLPIF: fresh start for every scenario (no cross-contamination) --
+            amt_scen = np.zeros_like(te_gt)
             apply_sel = m & te_wet_pred
             if apply_sel.sum() > 0:
                 amt_scen[apply_sel] = np.maximum(
                     amt_rf.predict(sf['X_amt'][apply_sel]), 0.0)
             amt_scen[m & ~te_wet_pred] = 0.0
 
-            amt_full_scen = p2_norm.copy()
+            amt_full_scen = env_norm.copy()
             amt_full_scen[:,pidx] = to_norm(sc, amt_scen, pidx)
             np.save(os.path.join(OUTPUT_DIR,
                 f'gan_imputed_test_modeB_seed{seed}_msclean_amountrf_{scen_label}.npy'),
                 amt_full_scen.astype(np.float32))
 
             # -- Evaluate --
-            r1 = metrics(gt_m, p2s_scen[m], f'Precip2Stage_clean_seed{seed}', scen_label, n_m)
             r2 = metrics(gt_m, amt_scen[m], f'AmountRF_clean_seed{seed}',     scen_label, n_m)
-            all_records += [r1, r2]
+            all_records += [r2]
             print(f'  [{scen_label} | {cor_key}] wet_pred={te_wet_pred[m].mean():.4f} '
-                  f'P2S F1={r1["f1"]:.4f} bias={r1["bias"]:+.4f}'
-                  f'  AMT F1={r2["f1"]:.4f} RMSE_wet={r2["rmse_wet"]} MAE_p95={r2["mae_p95"]}')
+                  f'AMT F1={r2["f1"]:.4f} RMSE_wet={r2["rmse_wet"]} MAE_p95={r2["mae_p95"]}')
 
     # ── Save ─────────────────────────────────────────────────────────────────
     df = pd.DataFrame(all_records)
@@ -323,12 +283,10 @@ def main():
     print('\n' + '='*70)
     print('  TABLE 2 — F1 (mean +/- std across seeds 42, 123, 456)')
     print('='*70)
-    p2s_f1_m, p2s_f1_s = agg('Precip2Stage_clean','f1')
     amt_f1_m, amt_f1_s = agg('AmountRF_clean','f1')
     print(f'  {"Method":<32}' + ''.join(f'  {s:<14}' for s in SCENS))
     print('  '+'-'*85)
     for pat, lbl, fm, fs in [
-        ('Precip2Stage_clean', '+Precip2Stage (clean)', p2s_f1_m, p2s_f1_s),
         ('AmountRF_clean',     '+AmountRF/DLPIF (clean)', amt_f1_m, amt_f1_s),
     ]:
         row = f'  {lbl:<32}'
@@ -341,11 +299,9 @@ def main():
     print('  TABLE 1 — Bias / CSI (mean +/- std)')
     print('='*70)
     for col, cname in [('bias','Bias'), ('csi','CSI')]:
-        p2s_m, p2s_s = agg('Precip2Stage_clean', col)
         amt_m, amt_s = agg('AmountRF_clean', col)
         print(f'\n  {cname}:')
         for lbl, fm, fs in [
-            ('+Precip2Stage (clean)', p2s_m, p2s_s),
             ('+AmountRF/DLPIF (clean)', amt_m, amt_s),
         ]:
             row = f'  {lbl:<32}'
@@ -360,8 +316,7 @@ def main():
     print(f'  {"Stage":<32} {"F1_10%":>12} {"F1_30d":>12}'
           f' {"Bias_10%":>12} {"RMSE_wet_10%":>14} {"MAE_p95_10%":>13}')
     print('  '+'-'*90)
-    for pat, lbl in [('Precip2Stage_clean','+Precip2Stage (clean)'),
-                     ('AmountRF_clean','+AmountRF/DLPIF (clean)')]:
+    for pat, lbl in [('AmountRF_clean','+AmountRF/DLPIF (clean)')]:
         f1m,f1s = agg(pat,'f1'); bim,bis=agg(pat,'bias')
         rwm,rws = agg(pat,'rmse_wet'); mam,mas=agg(pat,'mae_p95')
         def gs(d,s): return d.get(s,np.nan)
@@ -376,8 +331,7 @@ def main():
     print('\n' + '='*70)
     print('  ROBUSTNESS VERDICT')
     print('='*70)
-    for pat, lbl in [('Precip2Stage_clean','Precip2Stage'),
-                     ('AmountRF_clean','AmountRF/DLPIF')]:
+    for pat, lbl in [('AmountRF_clean','AmountRF/DLPIF')]:
         f1m,f1s = agg(pat,'f1')
         max_std = max(f1s.values)
         print(f'  {lbl}: max_seed_std(F1)={max_std:.4f}  '

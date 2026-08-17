@@ -1,0 +1,5 @@
+scenario,bias_old_crossstation,f1_old_crossstation,rmse_wet_old,rmse_p95_old,bias_new_stationwise,f1_new_stationwise,rmse_wet_new,rmse_p95_new
+10pct,0.043,0.7311,5.7493,19.61,0.1013,0.6522,7.2845,24.42
+20pct,0.048,0.7359,5.4969,15.6,0.1058,0.6791,6.6498,21.94
+block7d,0.0976,0.6579,6.475,21.52,0.1097,0.5835,6.8663,22.19
+block30d,0.0485,0.4749,7.7057,23.03,0.1074,0.4772,7.8195,23.5

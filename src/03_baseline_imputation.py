@@ -77,23 +77,51 @@ def per_var_metrics(pred, gt, art_mask, meteo_vars):
     out['MEAN'] = {'RMSE': mean_rmse, 'MAE': mean_mae}
     return out
 
-# 1. Mean Imputation
-def mean_imputation(train_data, test_corrupted):
-    print("  [1] Mean Imputation ... ", end='')
-    col_means = np.nanmean(train_data, axis=0)
+# 1. Mean Imputation (station-wise)
+def mean_imputation(train_data, train_station_ids, test_corrupted, test_station_ids):
+    """Fill each station's missing cells with that station's own training-set
+    column mean, rather than one global mean pooled across all stations —
+    different stations have different climatology (elevation, microclimate),
+    so a global mean is a biased fill for any individual station."""
+    print("  [1] Mean Imputation (station-wise) ... ", end='')
+    train_station_ids = np.asarray(train_station_ids)
+    test_station_ids  = np.asarray(test_station_ids)
+    global_means = np.nanmean(train_data, axis=0)
+    station_means = {}
+    for sid in pd.unique(train_station_ids):
+        rows = train_data[train_station_ids == sid]
+        m = np.nanmean(rows, axis=0)
+        m = np.where(np.isnan(m), global_means, m)  # fallback if a station has an all-NaN column
+        station_means[sid] = m
+
     out = test_corrupted.copy()
-    for c in range(out.shape[1]):
-        nan_idx = np.isnan(out[:, c])
-        out[nan_idx, c] = col_means[c]
+    for sid in pd.unique(test_station_ids):
+        idx = np.where(test_station_ids == sid)[0]
+        m = station_means.get(sid, global_means)
+        for c in range(out.shape[1]):
+            nan_idx = idx[np.isnan(out[idx, c])]
+            out[nan_idx, c] = m[c]
     out = np.clip(out, 0, 1)
     print("done")
     return out.astype(np.float32)
 
-# 2. Linear Interpolation
-def linear_interpolation(train_data, test_corrupted, meteo_vars):
-    print("  [2] Linear Interpolation ... ", end='')
-    df  = pd.DataFrame(test_corrupted, columns=meteo_vars)
-    out = df.interpolate(method='linear', limit_direction='both').values
+# 2. Linear Interpolation (station-wise)
+def linear_interpolation(train_data, test_corrupted, meteo_vars, station_ids):
+    """Interpolate each station's time series independently.
+
+    Rows are ordered DATE-major / STATION_ID-minor (see 01_data_preprocessing.py),
+    so a flat interpolate() over the whole array would blend values across
+    different stations on the same date instead of filling gaps along time
+    for a single station. Splitting by station_ids keeps interpolation
+    strictly within each station's own chronological sequence.
+    """
+    print("  [2] Linear Interpolation (station-wise) ... ", end='')
+    station_ids = np.asarray(station_ids)
+    out = test_corrupted.copy()
+    for sid in pd.unique(station_ids):
+        idx  = np.where(station_ids == sid)[0]
+        df_s = pd.DataFrame(test_corrupted[idx], columns=meteo_vars)
+        out[idx] = df_s.interpolate(method='linear', limit_direction='both').values
     out = np.clip(out, 0, 1)
     print("done")
     return out.astype(np.float32)
@@ -136,15 +164,17 @@ def mice_imputation(train_data, test_corrupted):
 # MAIN
 def main():
     print("=" * 60)
-    print("  BASELINE IMPUTATION
+    print("  BASELINE IMPUTATION")
     print("=" * 60)
 
     tr_npz   = load_npz('train')
     te_npz   = load_npz('test')
     meteo_vars = get_meteo_vars(tr_npz)
 
-    train_data = tr_npz['data'].astype(np.float64)
-    test_data  = te_npz['data'].astype(np.float64)
+    train_data  = tr_npz['data'].astype(np.float64)
+    test_data   = te_npz['data'].astype(np.float64)
+    station_ids = te_npz['station_ids']
+    train_station_ids = tr_npz['station_ids']
 
     print(f"\n  Train shape: {train_data.shape}  Test shape: {test_data.shape}")
     print(f"  Meteo vars: {meteo_vars}\n")
@@ -164,12 +194,12 @@ def main():
 
     results_10pct = {}
     print("  ─── Primary evaluation (10% random missingness) ───")
-    imp = mean_imputation(train_data, test_cor)
+    imp = mean_imputation(train_data, train_station_ids, test_cor, station_ids)
     results_10pct['mean'] = imp
     rv = per_var_metrics(imp, test_data, test_art, meteo_vars)
     print(f"       Mean RMSE={rv['MEAN']['RMSE']:.4f}")
 
-    imp = linear_interpolation(train_data, test_cor, meteo_vars)
+    imp = linear_interpolation(train_data, test_cor, meteo_vars, station_ids)
     results_10pct['linear'] = imp
     rv = per_var_metrics(imp, test_data, test_art, meteo_vars)
     print(f"       Linear RMSE={rv['MEAN']['RMSE']:.4f}")
@@ -186,8 +216,8 @@ def main():
 
     # ── Evaluate all methods over all scenarios
     methods = {
-        'mean'  : lambda c: mean_imputation(train_data, c),
-        'linear': lambda c: linear_interpolation(train_data, c, meteo_vars),
+        'mean'  : lambda c: mean_imputation(train_data, train_station_ids, c, station_ids),
+        'linear': lambda c: linear_interpolation(train_data, c, meteo_vars, station_ids),
         'knn'   : lambda c: knn_imputation(train_data, c),
         'mice'  : lambda c: mice_imputation(train_data, c),
     }

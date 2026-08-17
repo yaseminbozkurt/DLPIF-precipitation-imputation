@@ -17,7 +17,7 @@ Everything under `results/canonical/` is produced by
 `src/build_canonical_outputs.py`, which computes metrics exclusively
 through `src/canonical_metrics.py` -- one implementation, imported, not
 retyped -- and independently checked by `src/audit_canonical_outputs.py`
-(see `canonical_audit.csv`, currently **841/841 checks PASS, 0 FAIL, 0
+(see `canonical_audit.csv`, currently **1253/1253 checks PASS, 0 FAIL, 0
 WARN**).
 
 ## Layout
@@ -25,7 +25,7 @@ WARN**).
 ```
 results/canonical/
 ├── README.md                            (this file)
-├── canonical_audit.csv                  independent audit, 841 checks
+├── canonical_audit.csv                  independent audit, 1253 checks
 ├── predictions/
 │   └── {method}.csv                     row-level, ALL seeds x scenarios
 │                                        for that method in a single file
@@ -127,23 +127,27 @@ re-reading your own output proves nothing. Checks, by category:
 
 | Category | Checks |
 |---|---|
-| `completeness` (129 checks) | all expected (method, scenario, seed) groups exist; no unexpected extras; equivalent group-existence checks for the Table 4/6/7/8, LOSO, and multi-mask-variance analyses (`table4_groups_exist`, `table6_groups_exist`, `table7_groups_exist`, `table8_groups_exist`, `loso_groups_exist`, `multimask_groups_exist`, `multimask_seeds_unique`) |
-| `integrity` (304 checks) | no duplicate prediction rows; prediction row count matches a freshly-recomputed `art_mask` count; no NaN/Inf; every `row_index` is a genuine masked position; `n_evaluated` matches the fresh mask count |
-| `consistency` (305 checks) | metrics recomputed from `predictions/*.csv` match `canonical_metrics_all.csv` to 1e-9; the false-wet-rate/dry-spell/spatial-correlation tables (Table 4/7/8), the cross-scenario generalisation ablation (Table 6, Model A), and the LOSO/multi-mask-variance value ranges are independently recomputed from the same raw sources and checked for an exact match or valid range |
-| `provenance` (15 checks) | every `source_file` in every predictions CSV matches the fresh-artifact whitelist; no legacy/archive filename appears anywhere, including a static source-code grep over the Table-4/7/8 and LOSO/multi-mask analysis scripts themselves (`no_legacy_file_read`, `stage0_no_legacy_file_read`, `table6_loso_no_legacy_file_read`, `multimask_no_legacy_file_read`) |
+| `completeness` (179 checks) | all expected (method, scenario, seed) groups exist; no unexpected extras; equivalent group-existence checks for the Table 4/6/7/8, LOSO, and multi-mask-variance analyses (`table4_groups_exist`, `table6_groups_exist`, `table7_groups_exist`, `table8_groups_exist`, `loso_groups_exist`, `multimask_groups_exist`, `multimask_seeds_unique`) |
+| `integrity` (464 checks) | no duplicate prediction rows; prediction row count matches a freshly-recomputed `art_mask` count; no NaN/Inf; every `row_index` is a genuine masked position; `n_evaluated` matches the fresh mask count |
+| `consistency` (465 checks) | metrics recomputed from `predictions/*.csv` match `canonical_metrics_all.csv` to 1e-9; the false-wet-rate/dry-spell/spatial-correlation tables (Table 4/7/8), the cross-scenario generalisation ablation (Table 6, Model A), and the LOSO/multi-mask-variance value ranges are independently recomputed from the same raw sources and checked for an exact match or valid range |
+| `provenance` (17 checks) | every `source_file` in every predictions CSV matches the fresh-artifact whitelist; no legacy/archive filename appears anywhere, including a static source-code grep over the Table-4/7/8 and LOSO/multi-mask analysis scripts themselves (`no_legacy_file_read`, `stage0_no_legacy_file_read`, `table6_loso_no_legacy_file_read`, `multimask_no_legacy_file_read`) |
 | `equivalence` (12 checks) | `AmountRF_DLPIF` vs `DirectTwoStageRF`, row-index-matched, max\|diff\| -- one check per (scenario, seed) |
-| `traceability` (76 checks) | every `canonical_metrics_all.csv` row's `source_prediction_file` points to an existing, matching `predictions/*.csv` |
+| `traceability` (116 checks) | every `canonical_metrics_all.csv` row's `source_prediction_file` points to an existing, matching `predictions/*.csv` |
 
-Check counts above are from the live `canonical_audit.csv` (841 rows
+*(Category counts above reflect the live `canonical_audit.csv` as of this revision; they have grown from an earlier 841-check snapshot as additional methods -- `SingleStageRF`, `MissingnessIndicatorRF` -- and additional analysis checks were added. This file previously under-reported the totals; see `canonical_audit.csv` itself for the authoritative current counts.)*
+
+Check counts above are from the live `canonical_audit.csv` (1253 rows
 total; up from 589 after `WGANGP_raw`/`WGANGP_PrecipFix` were reinstated
-2026-08-02, adding their own completeness/integrity/consistency/
-provenance/traceability checks across all 3 seeds x 4 scenarios). An
-earlier `backbone_integrity` category -- WGAN-GP observed-cell
-byte-for-byte preservation, per-scenario array uniqueness -- applied only
-to the pre-2026-07-23 WGAN-GP run and no longer runs; it is not one of
-the six categories currently produced.
+2026-08-02, and up further from an 841-check snapshot as `SingleStageRF`
+and `MissingnessIndicatorRF` were added as registered methods, each
+adding their own completeness/integrity/consistency/provenance/
+traceability checks across all 3 seeds x 4 scenarios). An earlier
+`backbone_integrity` category -- WGAN-GP observed-cell byte-for-byte
+preservation, per-scenario array uniqueness -- applied only to the
+pre-2026-07-23 WGAN-GP run and no longer runs; it is not one of the six
+categories currently produced.
 
-Current result: **841/841 PASS, 0 FAIL, 0 WARN** (`canonical_audit.csv`).
+Current result: **1253/1253 PASS, 0 FAIL, 0 WARN** (`canonical_audit.csv`).
 Re-run via `python audit_canonical_outputs.py` after any change to
 `build_canonical_outputs.py` or its inputs.
 

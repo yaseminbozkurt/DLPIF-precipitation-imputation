@@ -28,7 +28,7 @@ import pandas as pd
 
 OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 WET_THRESH  = 0.1
-P95_THRESH  = 16.74
+P95_THRESH  = 19.2  # train+val p95, post-2005 dataset -- see canonical_metrics.py / compute_p95_threshold.py
 
 def load_scaler():
     with open(os.path.join(OUTPUT_DIR, 'scaler.pkl'), 'rb') as f:

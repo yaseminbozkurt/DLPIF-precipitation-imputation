@@ -40,6 +40,14 @@ np.random.seed(RANDOM_SEED)
 
 TEMPORAL_FEATURES = ['DOY_SIN', 'DOY_COS', 'MON_SIN', 'MON_COS', 'SEASON']
 
+# Analysis start date: PRECIP recording shows a structural discontinuity at
+# 2005 (pre-2005: ~30% of PRECIP cells observed, ~80-90% of those wet;
+# 2005+: ~97-100% observed, ~25-40% wet) consistent with a change in MGM
+# station recording convention rather than a real climate shift. Restricting
+# the analysis window avoids mixing two different missingness/recording
+# regimes into one dataset.
+ANALYSIS_START_DATE = '2005-01-01'
+
 # 1. Load & Parse
 def load_data(path: str) -> pd.DataFrame:
     print("=" * 60)
@@ -577,6 +585,12 @@ def compute_scenario_neighbor_avg(data_norm, station_ids_arr, A_knn, station_lis
     return compute_neighbor_avg(data_norm, station_ids_arr, A_knn, station_list)
 def main():
     df = load_data(DATA_PATH)
+
+    n_before = len(df)
+    df = df[df['DATE'] >= ANALYSIS_START_DATE].reset_index(drop=True)
+    print(f"\n[SCOPE] Restricting to ANALYSIS_START_DATE={ANALYSIS_START_DATE}: "
+          f"{n_before:,} -> {len(df):,} rows "
+          f"({df['DATE'].min().date()} -> {df['DATE'].max().date()})")
 
     validate_data(df)
 

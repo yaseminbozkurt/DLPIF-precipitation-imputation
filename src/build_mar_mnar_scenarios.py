@@ -14,18 +14,28 @@ the existing 'corrupted_10pct' scenario (Section 4.2.1's MCAR baseline):
                      likely to be selected for masking than dry days.
   mnar_intensity_moderate  -- Missing-Not-At-Random (amount-dependent, lower
                      dose): selection weight grows monotonically with raw
-                     PRECIP magnitude (weight_t = (1+PRECIP_t)^0.7),
-                     calibrated so the realized p95-event missing rate lands
-                     in a 30-75% band rather than removing every extreme.
-  mnar_intensity_severe    -- Same amount-dependent mechanism at a much
-                     higher dose (weight_t = (1+PRECIP_t)^1.5), the original
-                     adversarial stress test that removes essentially all
-                     p95-observed test cells. Kept alongside `_moderate` to
-                     give a dose-response pair (MCAR -> moderate -> severe)
-                     rather than a single all-or-nothing extreme scenario --
-                     a reviewer could otherwise object that degraded extreme-
-                     event reconstruction is a trivial consequence of having
+                     PRECIP magnitude (weight_t = (1+PRECIP_t)^beta). beta is
+                     selected on the VALIDATION partition only (see
+                     select_beta_from_validation()) so that VAL's own
+                     realized p95-event missing rate lands in a 30-75% band;
+                     the frozen beta is then applied to TEST unconditionally
+                     -- TEST's own realized rate is reported, never asserted.
+  mnar_intensity_severe    -- Same amount-dependent mechanism at a higher
+                     dose, again beta-selected on VALIDATION only (smallest
+                     grid value whose VAL realized rate exceeds moderate's).
+                     Kept alongside `_moderate` to give a dose-response pair
+                     (MCAR -> moderate -> severe) rather than a single
+                     all-or-nothing extreme scenario -- a reviewer could
+                     otherwise object that degraded extreme-event
+                     reconstruction is a trivial consequence of having
                      removed every extreme observation by construction.
+
+LEAKAGE FIX (2026-08-11): earlier versions of this script selected/verified
+both beta doses by asserting a target p95-missing-rate band computed on the
+TEST partition itself -- a test-blindness violation flagged in manuscript
+review, since the stress-test's severity was tuned against a held-out-test
+outcome. Selection now runs against VALIDATION only; TEST is masked with the
+frozen result and its realized rate is reported descriptively.
 
 Design (confirmed with user before implementation):
   - Only the PRECIP column is touched by these three mechanisms. The other
@@ -89,16 +99,22 @@ SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 TARGET_RATE = 0.10                # same PRECIP missing-cell budget as '10pct'
 MAR_BETAS = (2.0, 2.0, 2.0)       # logistic weights on normalized RH_MEAN, WIND_MEAN, P_MEAN
 MNAR_WET_RATIO = 3.0               # wet-cell : dry-cell sampling weight ratio
-# weight_t = (1 + raw_PRECIP) ** beta. Two doses, calibrated empirically
-# against this dataset's 47 p95-observed test cells (see the beta sweep in
-# the implementation notes): MODERATE lands the realized p95-event missing
-# rate near the middle of a 40-70% band, SEVERE is the original adversarial
-# stress test that masks essentially all p95 observations. Reviewers could
+# weight_t = (1 + raw_PRECIP) ** beta. Two doses, forming a deliberate
+# dose-response pair (MCAR -> MODERATE -> SEVERE): a reviewer could
 # reasonably object that a single "of course extremes are reconstructed
-# poorly, you removed every extreme observation" scenario proves too little;
-# the dose-response pair (MCAR -> MODERATE -> SEVERE) is more convincing.
-MNAR_INTENSITY_MODERATE_BETA = 0.7
-MNAR_INTENSITY_SEVERE_BETA = 1.5
+# poorly, you removed every extreme observation" scenario proves too little.
+#
+# LEAKAGE FIX (2026-08-11): beta was previously selected/verified by a
+# hard-coded assertion checking the realized p95-masking rate on the TEST
+# partition's own 47 p95-observed cells -- i.e. the stress-scenario severity
+# was tuned against a held-out-test outcome, a test-blindness violation
+# flagged in manuscript review. Beta selection now runs against the
+# VALIDATION partition only (see select_beta_from_validation() below); the
+# frozen values are applied to TEST unconditionally, and whatever p95
+# masking rate results on TEST is simply reported, never asserted against.
+MNAR_INTENSITY_MODERATE_BAND = (0.30, 0.75)   # validation-partition target band
+MNAR_INTENSITY_MODERATE_BETA_GRID = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2]
+MNAR_INTENSITY_SEVERE_BETA_GRID = [1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.0, 2.5, 3.0]
 WET_THRESH = 0.1                   # mm, matches direct_two_stage_rf.py::WET_THRESH
 P95_THRESH = 19.2                  # mm, matches direct_two_stage_rf.py::P95_THRESH
 SEED_BASE = 42 + 500               # +1/+2/+3/+4 per scenario below
@@ -152,6 +168,86 @@ def weighted_sample_without_replacement(candidates, weights, n_remove, seed):
     p = w / w.sum()
     chosen = rng.choice(candidates, size=n_remove, replace=False, p=p)
     return np.sort(chosen)
+
+
+def select_beta_from_validation(scaler, target_rate=TARGET_RATE, wet_thresh=WET_THRESH,
+                                 p95_thresh=P95_THRESH, seed_base=SEED_BASE + 900):
+    """Select MNAR-Intensity beta doses using ONLY the validation partition -- the leakage fix.
+
+    For each beta candidate, simulates the identical weighted-sampling mechanism used later on
+    TEST, but on VAL's own naturally-observed PRECIP cells, and measures the realized p95-conditional
+    missing rate on VAL. Moderate is the smallest grid value landing inside MNAR_INTENSITY_MODERATE_BAND
+    on validation; if none land inside the band, the closest-to-band-center value is used and flagged.
+    Severe is the smallest grid value whose validation realized rate exceeds Moderate's (dose-response
+    ordering), enforced on validation data only. The frozen (beta, validation-diagnostic) values are
+    returned; TEST is never consulted during this selection.
+    """
+    val_path = os.path.join(SRC_DIR, 'preprocessed_val.npz')
+    va = dict(np.load(val_path, allow_pickle=True))
+    va_data = va['data'].astype(np.float32)
+    va_real_mask = va['real_mask'].astype(np.float32)
+    meteo_vars = list(va['meteo_vars'])
+    precip_idx = meteo_vars.index('PRECIP')
+
+    va_raw = scaler.inverse_transform(va_data)
+    va_raw_precip = va_raw[:, precip_idx]
+    va_candidates = np.where(va_real_mask[:, precip_idx] == 1)[0]
+    va_n_remove = int(round(len(va_candidates) * target_rate))
+
+    is_wet_all = va_raw_precip > wet_thresh
+    is_extreme_all = va_raw_precip >= p95_thresh
+    n_extreme_obs = int(is_extreme_all[va_candidates].sum())
+    print(f'\n  [BETA SELECTION -- VALIDATION PARTITION ONLY]')
+    print(f'  VAL PRECIP candidate pool: {len(va_candidates):,} rows, '
+          f'target missing count: {va_n_remove:,}, p95-observed cells: {n_extreme_obs}')
+
+    def realized_rate(beta, seed):
+        w = mnar_intensity_weights(va_raw_precip[va_candidates], beta=beta)
+        sel = weighted_sample_without_replacement(va_candidates, w, va_n_remove, seed)
+        masked = np.zeros(len(va_data), dtype=bool)
+        masked[sel] = True
+        n_masked = int((masked & is_extreme_all)[va_candidates].sum())
+        return n_masked / n_extreme_obs if n_extreme_obs else float('nan')
+
+    lo, hi = MNAR_INTENSITY_MODERATE_BAND
+    moderate_beta, moderate_rate, in_band = None, None, False
+    for beta in MNAR_INTENSITY_MODERATE_BETA_GRID:
+        rate = realized_rate(beta, seed_base + int(beta * 100))
+        print(f'    moderate candidate beta={beta:.2f} -> VAL p95 missing rate {rate:.4f}')
+        if lo <= rate <= hi:
+            moderate_beta, moderate_rate, in_band = beta, rate, True
+            break
+    if moderate_beta is None:
+        band_mid = (lo + hi) / 2
+        best = min(MNAR_INTENSITY_MODERATE_BETA_GRID,
+                   key=lambda b: abs(realized_rate(b, seed_base + int(b * 100)) - band_mid))
+        moderate_beta = best
+        moderate_rate = realized_rate(best, seed_base + int(best * 100))
+        print(f'    [WARN] no grid value landed inside [{lo},{hi}] on VAL; '
+              f'using closest-to-band-center beta={moderate_beta:.2f} (VAL rate {moderate_rate:.4f})')
+    else:
+        print(f'    [OK] moderate beta={moderate_beta:.2f} selected (VAL p95 missing rate '
+              f'{moderate_rate:.4f} inside [{lo},{hi}])')
+
+    severe_beta, severe_rate = None, None
+    for beta in MNAR_INTENSITY_SEVERE_BETA_GRID:
+        rate = realized_rate(beta, seed_base + int(beta * 100))
+        print(f'    severe candidate beta={beta:.2f} -> VAL p95 missing rate {rate:.4f}')
+        if rate > moderate_rate:
+            severe_beta, severe_rate = beta, rate
+            break
+    if severe_beta is None:
+        severe_beta = MNAR_INTENSITY_SEVERE_BETA_GRID[-1]
+        severe_rate = realized_rate(severe_beta, seed_base + int(severe_beta * 100))
+        print(f'    [WARN] no grid value exceeded moderate on VAL; using largest grid value '
+              f'beta={severe_beta:.2f} (VAL rate {severe_rate:.4f})')
+    else:
+        print(f'    [OK] severe beta={severe_beta:.2f} selected (VAL p95 missing rate {severe_rate:.4f} '
+              f'> moderate VAL rate {moderate_rate:.4f})')
+
+    return dict(moderate_beta=moderate_beta, severe_beta=severe_beta,
+                moderate_val_rate=moderate_rate, severe_val_rate=severe_rate,
+                moderate_in_band=in_band, val_n_extreme_obs=n_extreme_obs)
 
 
 def main():
@@ -213,6 +309,12 @@ def main():
 
     n_base_10pct = int(base_art_mask[candidates, precip_idx].sum())
     print(f'  (corrupted_10pct actually masks {n_base_10pct:,} of these PRECIP cells, for reference)')
+
+    beta_selection = select_beta_from_validation(scaler)
+    MNAR_INTENSITY_MODERATE_BETA = beta_selection['moderate_beta']
+    MNAR_INTENSITY_SEVERE_BETA = beta_selection['severe_beta']
+    print(f'\n  Frozen doses (selected on VAL, applied unconditionally to TEST): '
+          f'moderate beta={MNAR_INTENSITY_MODERATE_BETA:.2f}, severe beta={MNAR_INTENSITY_SEVERE_BETA:.2f}')
 
     weight_fns = {
         'mar_meteo': lambda: mar_meteo_weights(
@@ -287,17 +389,22 @@ def main():
             print('  [OK] wet-day missing rate exceeds dry-day missing rate, as intended.')
 
         if scen_key == 'mnar_intensity_moderate':
-            assert 0.30 <= extreme_rate <= 0.75, \
-                f'mnar_intensity_moderate: p95 missing rate {extreme_rate:.4f} outside intended [0.30, 0.75] band'
-            print(f'  [OK] p95-event missing rate {extreme_rate:.4f} lands inside the intended moderate-dose band.')
+            # LEAKAGE FIX: beta was selected/verified on VALIDATION only (see beta_selection above);
+            # the realized rate on TEST is reported here descriptively and is NEVER asserted against --
+            # test-blind by construction, whatever value results.
+            lo, hi = MNAR_INTENSITY_MODERATE_BAND
+            band_note = 'inside' if lo <= extreme_rate <= hi else 'outside'
+            print(f'  [REPORT-ONLY] TEST p95-event missing rate {extreme_rate:.4f} is {band_note} the '
+                  f'[{lo},{hi}] band that guided VAL-based beta selection (VAL rate was '
+                  f'{beta_selection["moderate_val_rate"]:.4f}). Not asserted -- reported as-is.')
             moderate_extreme_rate = extreme_rate
 
         if scen_key == 'mnar_intensity_severe':
-            assert extreme_rate > moderate_extreme_rate, \
-                (f'mnar_intensity_severe: p95 missing rate ({extreme_rate:.4f}) did not exceed '
-                 f'mnar_intensity_moderate ({moderate_extreme_rate:.4f}) -- dose-response ordering violated')
-            print(f'  [OK] p95-event missing rate {extreme_rate:.4f} exceeds the moderate dose '
-                  f'({moderate_extreme_rate:.4f}), confirming MCAR -> moderate -> severe dose-response ordering.')
+            ordering_note = 'held' if extreme_rate > moderate_extreme_rate else 'did NOT hold'
+            print(f'  [REPORT-ONLY] TEST dose-response ordering (severe > moderate) {ordering_note}: '
+                  f'severe={extreme_rate:.4f} vs moderate={moderate_extreme_rate:.4f} on TEST '
+                  f'(ordering was selected on VAL: severe={beta_selection["severe_val_rate"]:.4f} vs '
+                  f'moderate={beta_selection["moderate_val_rate"]:.4f}). Not asserted -- reported as-is.')
 
         print('  Recomputing neighbor_avg / neighbor_mask ...')
         nbr_avg, nbr_mask = prep01.compute_neighbor_avg(corrupted, station_ids, A_knn, stations)
@@ -307,7 +414,7 @@ def main():
         te[f'neighbor_avg_{scen_key}'] = nbr_avg.astype(np.float32)
         te[f'neighbor_mask_{scen_key}'] = nbr_mask.astype(np.float32)
 
-        diag_rows.append(dict(
+        row = dict(
             scenario=scen_key,
             n_candidates=len(candidates),
             n_masked=n_hidden,
@@ -316,7 +423,19 @@ def main():
             n_dry_obs=n_dry_obs, n_dry_masked=n_dry_masked, dry_missing_rate=dry_rate,
             n_extreme_obs=n_extreme_obs, n_extreme_masked=n_extreme_masked,
             extreme_missing_rate=extreme_rate,
-        ))
+        )
+        if scen_key == 'mnar_intensity_moderate':
+            row.update(beta=MNAR_INTENSITY_MODERATE_BETA,
+                       beta_selected_on='validation',
+                       val_extreme_missing_rate=beta_selection['moderate_val_rate'],
+                       val_n_extreme_obs=beta_selection['val_n_extreme_obs'],
+                       val_landed_in_band=beta_selection['moderate_in_band'])
+        elif scen_key == 'mnar_intensity_severe':
+            row.update(beta=MNAR_INTENSITY_SEVERE_BETA,
+                       beta_selected_on='validation',
+                       val_extreme_missing_rate=beta_selection['severe_val_rate'],
+                       val_n_extreme_obs=beta_selection['val_n_extreme_obs'])
+        diag_rows.append(row)
 
     np.savez_compressed(test_path, **te)
     print(f'\n  -> Updated {test_path} with corrupted_/art_mask_/neighbor_avg_/neighbor_mask_'

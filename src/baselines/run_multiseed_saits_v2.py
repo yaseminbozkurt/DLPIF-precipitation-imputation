@@ -12,9 +12,9 @@ import os, sys, subprocess, io, pandas as pd, numpy as np
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PYTHON      = sys.executable
-TRAIN_SCRIPT = os.path.join(PROJECT_DIR, "baselines_dl", "train_saits_v2.py")
+TRAIN_SCRIPT = os.path.join(PROJECT_DIR, "baselines", "train_saits_v2.py")
 V2_RESULTS  = os.path.join(PROJECT_DIR, "results_dl", "saits_v2")
-SEEDS       = [42, 7, 123]
+SEEDS       = [42, 123, 456]   # matches the canonical pipeline's seed set (d2s.SEEDS)
 METRICS     = ["F1", "CSI", "bias", "RMSE_wet"]
 
 

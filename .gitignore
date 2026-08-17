@@ -47,3 +47,15 @@ build/
 # Manuscript files (submitted separately)
 *.docx
 paper.pdf
+
+# Backup / working-directory artifacts (not part of the public release)
+*.bak
+*.zip
+_pre_rebuild_backup_1973/
+_not_used_by_current_pipeline/
+src/experiments_dl_backup_stale/
+src/_mnar_beta_fix_backup_20260811/
+results/code_backups/
+results/multiseed_final/
+results/wgan_runs/
+gpu_transfer_package_scenario_wgan*.zip
