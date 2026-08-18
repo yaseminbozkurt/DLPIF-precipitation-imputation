@@ -402,6 +402,13 @@ RandomForestRegressor(n_estimators=400, min_samples_leaf=2,
 
 ---
 
+## External Validation
+
+[`external_validation_ohio/`](external_validation_ohio/) — a first,
+scoped-down replication of RQ1 and RQ4a on four independent GHCN-Daily
+stations in Ohio, USA, with no institutional data-use restriction. See
+that directory's README for scope, results, and reproduction steps.
+
 ## Provenance
 
 Post-hoc corrections to the analysis pipeline (e.g. the 2026-08-11
