@@ -1,7 +1,7 @@
 # DLPIF — Decoupled Learning–Physical Imputation Framework
 
-> *"Beyond RMSE: Occurrence–Amount Decoupling for Hydrologically Consistent Precipitation Imputation"*  
-> Target journal: *MDPI Hydrology*
+> *"A Reliability-Aware Framework for Precipitation Imputation under Informative Missingness and Observational Context Loss"*  
+> Target journal: *Hydrology and Earth System Sciences (HESS)* — SCIE-indexed (Web of Science Core Collection)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)](https://pytorch.org/)
@@ -425,9 +425,9 @@ MNAR-Intensity beta-dose recalibration) are documented in
 
 ```bibtex
 @article{bozkurt2026dlpif,
-  title   = {Beyond RMSE: Occurrence--Amount Decoupling for Hydrologically Consistent Precipitation Imputation},
+  title   = {A Reliability-Aware Framework for Precipitation Imputation under Informative Missingness and Observational Context Loss},
   author  = {Bozkurt, Yasemin and Serttaş, Soydan and Bakır, Çiğdem},
-  journal = {Hydrology},
+  journal = {Hydrology and Earth System Sciences},
   year    = {2026},
   note    = {Under review}
 }
