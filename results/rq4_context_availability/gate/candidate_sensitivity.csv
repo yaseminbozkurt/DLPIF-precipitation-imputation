@@ -1,0 +1,225 @@
+family,params,scenario,gate_trigger_rate,dlpif_f1,gated_f1,delta_f1,dlpif_rmse_wet,gated_rmse_wet,delta_rmse_wet
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.6}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.6}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.6}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.6}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.6}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.6}",block7d,0.0012,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.6}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.6}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.3}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.3}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.3}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.3}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.3}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.3}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.3}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.3}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.25}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.25}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.25}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.25}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.25}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.25}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.25}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.25}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.2}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.2}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.2}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.2}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.2}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.2}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.2}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.2}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.35}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.35}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.35}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.35}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.35}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.35}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.35}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.35}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.5}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.5}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.5}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.5}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.5}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.5}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.5}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.5}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.45}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.45}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.45}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.45}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.45}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.45}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.45}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.45}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.4}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.4}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.4}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.4}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.4}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.4}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.4}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.4}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.75}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.75}",mar_meteo,0.0048,0.8119,0.8074,-0.0044,5.2333,5.2279,-0.0054
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.75}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.75}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.75}",mnar_intensity_severe,0.0024,0.9365,0.9347,-0.0018,9.8108,9.8168,0.006
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.75}",block7d,0.0321,0.7927,0.7832,-0.0095,4.8806,4.871,-0.0097
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.75}",block30d,0.0417,0.797,0.7821,-0.0149,6.0814,6.1552,0.0738
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.75}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.65}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.65}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.65}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.65}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.65}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.65}",block7d,0.006,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.65}",block30d,0.006,0.797,0.7942,-0.0028,6.0814,6.0679,-0.0135
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.65}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.7}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.7}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.7}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.7}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.7}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.7}",block7d,0.0131,0.7927,0.7912,-0.0015,4.8806,4.834,-0.0466
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.7}",block30d,0.0083,0.797,0.792,-0.005,6.0814,6.0882,0.0068
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.7}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.55}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.55}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.55}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.55}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.55}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.55}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.55}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.2, ""w_neighbor"": 0.8, ""tau"": 0.55}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.55}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.55}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.55}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.55}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.55}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.55}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.55}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.55}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.5}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.5}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.5}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.5}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.5}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.5}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.5}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.5}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.6}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.6}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.6}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.6}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.6}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.6}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.6}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.6}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.45}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.45}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.45}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.45}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.45}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.45}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.45}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.45}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.4}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.4}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.4}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.4}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.4}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.4}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.4}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.4}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.45}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.45}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.45}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.45}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.45}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.45}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.45}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.45}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 1.0}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 1.0}",mar_meteo,0.0048,0.8119,0.8074,-0.0044,5.2333,5.2279,-0.0054
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 1.0}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 1.0}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 1.0}",mnar_intensity_severe,0.0024,0.9365,0.9347,-0.0018,9.8108,9.8168,0.006
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 1.0}",block7d,0.031,0.7927,0.7832,-0.0095,4.8806,4.871,-0.0097
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 1.0}",block30d,0.0417,0.797,0.7821,-0.0149,6.0814,6.1552,0.0738
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 1.0}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 0.9}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 0.9}",mar_meteo,0.0048,0.8119,0.8074,-0.0044,5.2333,5.2279,-0.0054
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 0.9}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 0.9}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 0.9}",mnar_intensity_severe,0.0024,0.9365,0.9347,-0.0018,9.8108,9.8168,0.006
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 0.9}",block7d,0.031,0.7927,0.7832,-0.0095,4.8806,4.871,-0.0097
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 0.9}",block30d,0.0417,0.797,0.7821,-0.0149,6.0814,6.1552,0.0738
+interaction-gate,"{""tau_neighbor"": 0.75, ""tau_local"": 0.9}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.35}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.35}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.35}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.35}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.35}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.35}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.35}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.35}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.4}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.4}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.4}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.4}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.4}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.4}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.4}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.4}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.3}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.3}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.3}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.3}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.3}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.3}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.3}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.3}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.65}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.65}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.65}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.65}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.65}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.65}",block7d,0.0012,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.65}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.3, ""w_neighbor"": 0.7, ""tau"": 0.65}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 0.9}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 0.9}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 0.9}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 0.9}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 0.9}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 0.9}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 0.9}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 0.9}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 1.0}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 1.0}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 1.0}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 1.0}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 1.0}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 1.0}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 1.0}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+interaction-gate,"{""tau_neighbor"": 0.25, ""tau_local"": 1.0}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.55}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.55}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.55}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.55}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.55}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.55}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.55}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.55}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.5}",10pct,0.0,0.8117,0.8117,0.0,5.4082,5.4082,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.5}",mar_meteo,0.0,0.8119,0.8119,0.0,5.2333,5.2333,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.5}",mnar_wet,0.0,0.8391,0.8391,0.0,5.5714,5.5714,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.5}",mnar_intensity_moderate,0.0,0.8744,0.8744,0.0,6.4166,6.4166,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.5}",mnar_intensity_severe,0.0,0.9365,0.9365,0.0,9.8108,9.8108,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.5}",block7d,0.0,0.7927,0.7927,0.0,4.8806,4.8806,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.5}",block30d,0.0,0.797,0.797,0.0,6.0814,6.0814,0.0
+scalar-gate,"{""w_local"": 0.4, ""w_neighbor"": 0.6, ""tau"": 0.5}",netblock30d,1.0,0.0,0.5202,0.5202,6.4085,5.5954,-0.8131

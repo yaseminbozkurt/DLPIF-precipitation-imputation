@@ -149,6 +149,8 @@ DLPIF-precipitation-imputation/
 │   ├── rq4b_apply_gate.py             # RQ4b -- frozen gate applied once to all test scenarios
 │   ├── confound_isolation_reduced_features.py # isolates whether external_validation_ohio's sharper
 │   │                                   #   neighbour-loss severity is a feature-set or a network effect
+│   ├── rq4b_gate_sensitivity.py       # applies all 28 validation-tied gate candidates to the test
+│   │                                   #   scenarios -- how much does the tie-break choice matter?
 │   │
 │   └── baselines/
 │       ├── saits_data_adapter.py
