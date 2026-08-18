@@ -142,6 +142,7 @@ DLPIF-precipitation-imputation/
 │   ├── audit_model_identity.py        # RQ2 -- confirms calibration doesn't mutate the Stage-1 classifier (hash check)
 │   ├── stage2_conformal_uq.py         # RQ3 -- Stage-2 split-conformal prediction intervals (primary, symmetric)
 │   ├── stage2_conformal_uq_cqr.py     # RQ3 robustness check -- QRF-based conformalized quantile regression
+│   ├── stage2_conformal_uq_saits.py   # RQ3 backbone-generalisation check -- same construction applied to SAITS
 │   ├── context_availability_diagnostic.py # RQ4a -- A_local/A_neighbour availability diagnostics
 │   ├── graded_context_loss.py         # RQ4a -- graded local/neighbour/joint context-loss ablation
 │   ├── rq4b_gate_selection.py         # RQ4b -- interaction-gate selection on validation data only
@@ -151,6 +152,7 @@ DLPIF-precipitation-imputation/
 │       ├── saits_data_adapter.py
 │       ├── train_saits_v2.py
 │       ├── repackage_saits_outputs.py
+│       ├── repackage_saits_val_10pct.py # inference-only SAITS VAL-CAL predictions for stage2_conformal_uq_saits.py
 │       ├── evaluate_saits.py
 │       └── run_multiseed_saits_v2.py
 │
@@ -173,6 +175,8 @@ DLPIF-precipitation-imputation/
     ├── rq3_conformal/                 # RQ3 primary -- symmetric split-conformal oracle/end-to-end coverage
     ├── rq3_conformal_cqr/             # RQ3 robustness check -- QRF-CQR oracle/end-to-end coverage (comparable
     │                                   #   cell-for-cell with rq3_conformal/; see stage2_conformal_uq_cqr.py)
+    ├── rq3_conformal_saits/           # RQ3 backbone-generalisation check -- SAITS oracle coverage, same
+    │                                   #   construction as rq3_conformal/; see stage2_conformal_uq_saits.py
     └── rq4_context_availability/      # RQ4a/b -- graded context-loss ablation, gate selection, gate applied to test
 
 Files directly under `results/` (`clean_full_evaluation.csv`,
