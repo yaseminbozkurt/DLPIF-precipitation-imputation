@@ -151,6 +151,8 @@ DLPIF-precipitation-imputation/
 │   │                                   #   neighbour-loss severity is a feature-set or a network effect
 │   ├── rq4b_gate_sensitivity.py       # applies all 28 validation-tied gate candidates to the test
 │   │                                   #   scenarios -- how much does the tie-break choice matter?
+│   ├── rf_hyperparameter_sensitivity.py # +/-50% n_estimators sweep for Stage 1/Stage 2 -- are the
+│   │                                   #   fixed, manually-chosen tree counts fragile?
 │   │
 │   └── baselines/
 │       ├── saits_data_adapter.py
