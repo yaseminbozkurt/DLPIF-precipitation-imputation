@@ -7,3 +7,4 @@ seaborn>=0.13
 joblib>=1.3
 torch>=2.0
 pypots==1.5
+quantile-forest==1.4.2

@@ -135,6 +135,18 @@ DLPIF-precipitation-imputation/
 │   ├── canonical_multimask_variance.py      # Multi-mask sampling-variance experiment
 │   ├── canonical_false_wet_analysis.py, canonical_dry_spell.py, canonical_spatial_correlation.py
 │   │                                   # Canonical drizzle / dry-spell / spatial-correlation tables
+│   │
+│   ├── build_mar_mnar_scenarios.py    # RQ1 -- MAR-Meteo / MNAR-Wet / MNAR-Intensity mechanism-shift masks
+│   ├── build_network_block_scenario.py # netblock30d network-wide simultaneous-missingness mask
+│   ├── calibrate_occurrence_probability.py # RQ2 -- Platt/Isotonic Stage-1 probability calibration
+│   ├── audit_model_identity.py        # RQ2 -- confirms calibration doesn't mutate the Stage-1 classifier (hash check)
+│   ├── stage2_conformal_uq.py         # RQ3 -- Stage-2 split-conformal prediction intervals (primary, symmetric)
+│   ├── stage2_conformal_uq_cqr.py     # RQ3 robustness check -- QRF-based conformalized quantile regression
+│   ├── context_availability_diagnostic.py # RQ4a -- A_local/A_neighbour availability diagnostics
+│   ├── graded_context_loss.py         # RQ4a -- graded local/neighbour/joint context-loss ablation
+│   ├── rq4b_gate_selection.py         # RQ4b -- interaction-gate selection on validation data only
+│   ├── rq4b_apply_gate.py             # RQ4b -- frozen gate applied once to all test scenarios
+│   │
 │   └── baselines/
 │       ├── saits_data_adapter.py
 │       ├── train_saits_v2.py
@@ -154,7 +166,14 @@ DLPIF-precipitation-imputation/
     │   ├── metrics/canonical_metrics_summary.csv  #   mean ± std per (method, scenario) — cite this
     │   └── analysis/                  #   bootstrap significance, LOSO, ablations, multi-mask variance
     ├── audit_linear_interpolation.md  # Cross-station-leakage fix for the Linear baseline
-    └── d2s_dlpif_equivalence_report.md # Backbone-independence equivalence proof (numerical log)
+    ├── d2s_dlpif_equivalence_report.md # Backbone-independence equivalence proof (numerical log)
+    │
+    ├── rq1_mechanism_diagnostics/     # RQ1 -- occurrence/amount performance under MAR/MNAR mechanism shift
+    ├── rq2_calibration/               # RQ2 -- Stage-1 calibration metrics, reliability bins, VAL-CAL/VAL-SELECT split
+    ├── rq3_conformal/                 # RQ3 primary -- symmetric split-conformal oracle/end-to-end coverage
+    ├── rq3_conformal_cqr/             # RQ3 robustness check -- QRF-CQR oracle/end-to-end coverage (comparable
+    │                                   #   cell-for-cell with rq3_conformal/; see stage2_conformal_uq_cqr.py)
+    └── rq4_context_availability/      # RQ4a/b -- graded context-loss ablation, gate selection, gate applied to test
 
 Files directly under `results/` (`clean_full_evaluation.csv`,
 `multiseed_clean_evaluation.csv`, `summary_mean_std.csv`,
