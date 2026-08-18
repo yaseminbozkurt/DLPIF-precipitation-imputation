@@ -147,6 +147,8 @@ DLPIF-precipitation-imputation/
 │   ├── graded_context_loss.py         # RQ4a -- graded local/neighbour/joint context-loss ablation
 │   ├── rq4b_gate_selection.py         # RQ4b -- interaction-gate selection on validation data only
 │   ├── rq4b_apply_gate.py             # RQ4b -- frozen gate applied once to all test scenarios
+│   ├── confound_isolation_reduced_features.py # isolates whether external_validation_ohio's sharper
+│   │                                   #   neighbour-loss severity is a feature-set or a network effect
 │   │
 │   └── baselines/
 │       ├── saits_data_adapter.py
