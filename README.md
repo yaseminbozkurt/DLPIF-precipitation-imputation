@@ -1,7 +1,7 @@
 # DLPIF — Decoupled Learning–Physical Imputation Framework
 
 > *"A Reliability-Aware Framework for Precipitation Imputation under Informative Missingness and Observational Context Loss"*  
-> Target journal: *Hydrology and Earth System Sciences (HESS)* — SCIE-indexed (Web of Science Core Collection)
+> Target journal: *Stochastic Environmental Research and Risk Assessment (SERRA)* — SCIE-indexed (Web of Science Core Collection)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)](https://pytorch.org/)
@@ -427,7 +427,7 @@ MNAR-Intensity beta-dose recalibration) are documented in
 @article{bozkurt2026dlpif,
   title   = {A Reliability-Aware Framework for Precipitation Imputation under Informative Missingness and Observational Context Loss},
   author  = {Bozkurt, Yasemin and Serttaş, Soydan and Bakır, Çiğdem},
-  journal = {Hydrology and Earth System Sciences},
+  journal = {Stochastic Environmental Research and Risk Assessment},
   year    = {2026},
   note    = {Under review}
 }
